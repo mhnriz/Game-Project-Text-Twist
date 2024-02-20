@@ -1,39 +1,55 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 void help();
 void play_game();
+void game_set();
 
 // MAIN
 int main()
 {
     int choice;
-    printf("Welcome to Text Twist!\n\n");
-    printf("1. New game\n2. Help\n3. Exit\nPlease choose your option (1~3): ");
     do
     {
-        scanf("%d", choice);
+        printf("Welcome to TEXT TWIST!\n\n");
+        printf("1. New game\n2. Help\n3. Exit\nPlease choose your option (1~3): ");
+        scanf("%d", &choice);
         if (choice == 1)
             play_game();
         else if (choice == 2)
             help();
+        if (choice == 3)
+        {
+            printf("Thanks for playing!");
+            printf("\nExiting...");
+            return 0;
+        }
 
-    } while (0);
-
-    return 0;
+    } while (1);
 }
 
 // FUNCTIONS
 void play_game()
 {
+    system("clear");
+    printf("Here is your puzzle:\n\n");
 }
 
 void help()
 {
-
     printf("Instruction on How To Play.\n\n");
     /*
         INSERT INSTRUCTION
     */
     printf("Press ENTER to go back");
-    getc(stdin);
+    fflush(stdin);
+    while(getchar() != '\n');
+}
+
+void gameset(){
+    FILE *file;
+    int line;
+    file = fopen("GameSets.txt", "r");
+    fprintf(file);
+    fclose(file);
 }
