@@ -3,7 +3,7 @@
 
 void help();
 void play_game();
-void game_set();
+//void game_set();
 
 // MAIN
 int main()
@@ -46,10 +46,10 @@ void help()
     while(getchar() != '\n');
 }
 
-void gameset(){
+/*void gameset(){
     FILE *file;
     int line;
     file = fopen("GameSets.txt", "r");
     fprintf(file);
     fclose(file);
-}
+}*/
