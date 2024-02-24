@@ -58,8 +58,8 @@ void menu()
             help();
         if (choice == 3)
         {
-            printf("Thanks for playing!");
-            printf("\nExiting...\n");
+            printf("Thanks for playing!\n");
+            printf("Exiting...\n");
 
         }
     } while (choice != 3);
