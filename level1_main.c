@@ -4,7 +4,7 @@
 void help();
 void play_game();
 void menu();
-//void game_set();
+void game_set();
 
 // MAIN
 int main()
@@ -18,6 +18,7 @@ void play_game()
 {
     system("clear");
     printf("Here is your puzzle:\n\n");
+    game_set();
 }
 
 void help()
@@ -27,24 +28,27 @@ void help()
         INSERT INSTRUCTION
     */
     printf("Press ENTER to go back");
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF); //loop getchar() till no input buffer
-    
+    //int c;
+    //while ((c = getchar()) != '\n' && c != EOF); //loop getchar() till no input buffer
+    getchar();
+    getchar();
 }
 
-/*void gameset(){
+void game_set()
+{
+    char line[10];
     FILE *file;
-    int line;
     file = fopen("GameSets.txt", "r");
-    fprintf(file);
-    fclose(file);
-}*/
+    fgets(line, 10, file);
+    printf("%s\n", line);
+}
 
 void menu()
 {
     int choice = 0;
     do
     {
+    	system("clear");
         printf("Welcome to TEXT TWIST!\n\n");
         printf("1. New game\n2. Help\n3. Exit\nPlease choose your option (1~3): ");
         scanf("%d", &choice);
@@ -55,7 +59,7 @@ void menu()
         if (choice == 3)
         {
             printf("Thanks for playing!");
-            printf("\nExiting...");
+            printf("\nExiting...\n");
 
         }
     } while (choice != 3);
