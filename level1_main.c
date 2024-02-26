@@ -37,7 +37,7 @@ void help()
 void game_set()
 {
     char line[10];
-    int x = 2;
+    int x = 1; // no. for gameset
     FILE *file;
     file = fopen("GameSets.txt", "r");
     while (0 < x)
