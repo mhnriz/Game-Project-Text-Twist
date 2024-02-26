@@ -31,6 +31,7 @@ void help()
     */
     printf("Press ENTER to go back");
     flush();
+    getchar();
 }
 
 void game_set()
@@ -68,14 +69,13 @@ void menu()
 void flush()
 {
 	int c;
-	while (1)
+	/*while (1)
 	{
 		c = getchar();
-		if(c != '\n' || c != EOF)
+		if(c != '\n' && c != EOF)
 			break;
-	}
-	//while ((c = getchar()) != '\n')
-	getchar();
+	}*/
+	while ((c = getchar()) != '\n' && c != EOF);
     //while ((c = getchar()) != '\n' && c != EOF); //loop getchar() till no input buffer
     //getchar();
 }
