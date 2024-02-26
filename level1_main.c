@@ -30,8 +30,8 @@ void help()
         INSERT INSTRUCTION
     */
     printf("Press ENTER to go back");
-    flush();
     getchar();
+    flush();
 }
 
 void game_set()
@@ -50,12 +50,11 @@ void game_set()
 
 void menu()
 {
-    int choice = 0;
-    do
-    {
+	do{
+    	int choice = 0;
     	//system("clear");
-        printf("Welcome to TEXT TWIST!\n\n");
-        printf("1. New game\n2. Help\n3. Exit\nPlease choose your option (1~3): ");
+    	printf("Welcome to TEXT TWIST!\n\n");
+    	printf("1. New game\n2. Help\n3. Exit\nPlease choose your option (1~3): ");
         scanf("%d", &choice);
         if(choice == 1)
         	play_game();
@@ -63,7 +62,9 @@ void menu()
         	help();
         else if(choice == 3)
         	printf("Thanks for playing!!\nExiting...\n");
-    } while (choice != 3);
+    	else
+    		printf("Invalid input! Try again.\n");
+    }while (1);
 }
 
 void flush()
@@ -75,7 +76,11 @@ void flush()
 		if(c != '\n' && c != EOF)
 			break;
 	}*/
-	while ((c = getchar()) != '\n' && c != EOF);
+	while ((c = getchar()) != '\n' && c != EOF)
+	{
+		printf("Unwanted input detected! Press ENTER to go back");
+		while((c = getchar()) != '\n' && c != EOF);
+	}
     //while ((c = getchar()) != '\n' && c != EOF); //loop getchar() till no input buffer
     //getchar();
 }
