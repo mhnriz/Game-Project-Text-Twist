@@ -7,8 +7,8 @@ void play_game();
 void menu();
 void game_set();
 void flush();
-void guesses(int *check, int *point, char guess[10], int *end);
-void existed(char found[]);
+void guesses(int *check, char guess[10], int *end);
+void points();
 
 // MAIN
 int main()
@@ -20,7 +20,7 @@ int main()
 // FUNCTIONS
 void play_game()
 {	
-	int check = 0, points = 0, i = -1, j, end = 0;
+	int check = 0, points = 0, i = -1, j, k, end = 0;
 	char guess[16];
 	char guessed[25][10];
     
@@ -30,9 +30,26 @@ void play_game()
     do{
     	game_set();	
     	
-    	if(check){
-    		i++;
-    		strcpy(guessed[i], guess);
+    	if(check)
+    	{
+    	
+    		while(end != 0){
+    			if(guessed[j] == guess)
+    				k = 1;
+    				break;
+    			j++;
+    			end--;
+    		}
+    		if(k == 1)
+    			printf("You have already guessed it! \n");
+    		else
+    		{
+    			points += 2*strlen(guess);
+    			i++;
+    			strcpy(guessed[i], guess);
+    			
+			}
+
     	}
     	
     	if(i >= 0)
@@ -49,7 +66,7 @@ void play_game()
     	
     	printf("Guess a word or END to quit: ");
     	scanf("%s",guess);
-    	guesses(&check,&points, guess, &end);
+    	guesses(&check, guess, &end);
     	
     }while (strcmp(guess,"END") != 0 || i == end);		//strcmp: string comparison; if true returnn 0
 }
@@ -108,9 +125,10 @@ void flush()
 	}
 }
 
-void guesses(int *check, int *points, char guess[10], int *end)
+void guesses(int *check, char guess[10], int *end)
 {
 	int i = 0, j;
+	*end = 0;
 	char string[10];
 	FILE *list;
 	list = fopen("wordlist_Game1.txt", "r");
@@ -124,22 +142,27 @@ void guesses(int *check, int *points, char guess[10], int *end)
 	{
 		printf("%s: VALID WORD\n", guess);
 		printf("----------------------------------------------\n");
-		*points += 2*strlen(guess);
+		
 		*check = 1;
-		}
+	}
 	else
 	{
 		printf("%s: INVALID WORD\n", guess);
 		printf("----------------------------------------------\n");
 		*check = 0;
-		}	
+	}
+		
 	while(fgets(string,10,list))
 		*end += 1;
 	fclose(list);
 	
 }
 
-void existed(char found[]){
-			
+/*void points(int *point){
+	while(fgets(string,10,list)){
+		string[strcspn(string,"\n")]= '\0';		//strcspn() read string till '\n' and replace with '\0'.	
+		if(strcmp(string,guess)==0)
+			j = 1;
 	}
-
+}
+*/
