@@ -7,7 +7,8 @@ void play_game();
 void menu();
 void game_set();
 void flush();
-void wordlist(int *point, char guess[10]);
+void guesses(int *check, int *point, char guess[10], int *end);
+void existed(char found[]);
 
 // MAIN
 int main()
@@ -18,17 +19,39 @@ int main()
 
 // FUNCTIONS
 void play_game()
-{
-	int points = 0;
+{	
+	int check = 0, points = 0, i = -1, j, end = 0;
 	char guess[16];
+	char guessed[25][10];
+    
     system("clear");
     printf("Here is your puzzle:\n\n");
+    
     do{
     	game_set();	
+    	
+    	if(check){
+    		i++;
+    		strcpy(guessed[i], guess);
+    	}
+    	
+    	if(i >= 0)
+    	{
+    		printf("points so far: %d\n", points);
+    		printf("You have made the following words so far: \n");
+    	}
+    	
+    	for(j = 0; j <= i; j++)
+    		printf("%s ", guessed[j]);
+    	
+    	if(i>=0)
+    		printf("\n\n");
+    	
     	printf("Guess a word or END to quit: ");
     	scanf("%s",guess);
-    	wordlist(&points, guess);
-    }while (strcmp(guess,"END") != 0);		//strcmp: string comparison; if true returnn 0
+    	guesses(&check,&points, guess, &end);
+    	
+    }while (strcmp(guess,"END") != 0 || i == end);		//strcmp: string comparison; if true returnn 0
 }
 
 void help()
@@ -60,7 +83,7 @@ void menu()
 {
 	int choice = 0;
 	do{
-    	//system("clear");
+    	system("clear");
     	printf("Welcome to TEXT TWIST!\n\n");
     	printf("1. New game\n2. Help\n3. Exit\nPlease choose your option (1~3): ");
         scanf("%d", &choice);
@@ -85,18 +108,38 @@ void flush()
 	}
 }
 
-void wordlist(int *points, char guess[0])
+void guesses(int *check, int *points, char guess[10], int *end)
 {
+	int i = 0, j;
 	char string[10];
 	FILE *list;
 	list = fopen("wordlist_Game1.txt", "r");
 	while(fgets(string,10,list)){
-		string[strcspn(string,"\n")]= '\0';		//strcspn() string till '\n' and replace with '\0'.
+		string[strcspn(string,"\n")]= '\0';		//strcspn() read string till '\n' and replace with '\0'.	
 		if(strcmp(string,guess)==0)
-			printf("%s: VALID WORD\n", guess);
-			*points += 2;
-			
+			j = 1;
 	}
+	
+	if(j == 1)
+	{
+		printf("%s: VALID WORD\n", guess);
+		printf("----------------------------------------------\n");
+		*points += 2*strlen(guess);
+		*check = 1;
+		}
+	else
+	{
+		printf("%s: INVALID WORD\n", guess);
+		printf("----------------------------------------------\n");
+		*check = 0;
+		}	
+	while(fgets(string,10,list))
+		*end += 1;
 	fclose(list);
 	
 }
+
+void existed(char found[]){
+			
+	}
+
