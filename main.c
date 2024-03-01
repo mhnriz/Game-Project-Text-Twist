@@ -13,106 +13,110 @@ void points();
 // MAIN
 int main()
 {
-    menu();
-    return 0;
+	menu();
+	return 0;
 }
 
 // FUNCTIONS
 void play_game()
-{	
-	int check = 0, points = 0, i = -1, j, k, end = 0;
+{
+	int check = 0, points = 0, i = -1, j = 0, k, end = 0;
 	char guess[16];
 	char guessed[25][10];
-    
-    system("clear");
-    printf("Here is your puzzle:\n\n");
-    
-    do{
-    	game_set();	
-    	
-    	if(check)
-    	{
-    	
-    		while(end != 0){
-    			if(guessed[j] == guess)
-    				k = 1;
-    				break;
-    			j++;
-    			end--;
-    		}
-    		if(k == 1)
-    			printf("You have already guessed it! \n");
-    		else
-    		{
-    			points += 2*strlen(guess);
-    			i++;
-    			strcpy(guessed[i], guess);
-    			
-			}
 
-    	}
-    	
-    	if(i >= 0)
-    	{
-    		printf("points so far: %d\n", points);
-    		printf("You have made the following words so far: \n");
-    	}
-    	
-    	for(j = 0; j <= i; j++)
-    		printf("%s ", guessed[j]);
-    	
-    	if(i>=0)
-    		printf("\n\n");
-    	
-    	printf("Guess a word or END to quit: ");
-    	scanf("%s",guess);
-    	guesses(&check, guess, &end);
-    	
-    }while (strcmp(guess,"END") != 0 || i == end);		//strcmp: string comparison; if true returnn 0
+	system("clear");
+	printf("Here is your puzzle:\n\n");
+
+	do
+	{
+		game_set();
+
+		if (check)
+		{
+
+			while (end != 0)
+			{
+				if (guessed[j] == guess)
+				{
+					k = 1;
+					break;
+				}
+				j++;
+				end--;
+			}
+			if (k == 1)
+				printf("You have already guessed it! \n");
+			else
+			{
+				points += 2 * strlen(guess);
+				i++;
+				strcpy(guessed[i], guess);
+			}
+			k = 0;
+		}
+
+		if (i >= 0)
+		{
+			printf("points so far: %d\n", points);
+			printf("You have made the following words so far: \n");
+		}
+
+		for (j = 0; j <= i; j++)
+			printf("%s ", guessed[j]);
+
+		if (i >= 0)
+			printf("\n\n");
+
+		printf("Guess a word or END to quit: ");
+		scanf("%s", guess);
+		guesses(&check, guess, &end);
+
+	} while (strcmp(guess, "END") != 0 || i == end); // strcmp: string comparison; if true returnn 0
 }
 
 void help()
 {
-    printf("Instruction on How To Play.\n\n");
-    /*
-        INSERT INSTRUCTION
-    */
-    printf("Press ENTER to go back");
-    getchar();
-    flush();
+	printf("Instruction on How To Play.\n\n");
+	/*
+		INSERT INSTRUCTION
+	*/
+	printf("Press ENTER to go back");
+	getchar();
+	flush();
 }
 
 void game_set()
 {
-    char line[10];
-    int x = 1;		// no. for gameset
-    FILE *set;
-    set = fopen("GameSets.txt", "r");
-    while (0 < x)
-    {
-    	fgets(line, 10, set);
-    	x--;
-    }
-    printf("%s\n", line);
+	char line[10];
+	int x = 1; // no. for gameset
+	FILE *set;
+	set = fopen("GameSets.txt", "r");
+	while (0 < x)
+	{
+		fgets(line, 10, set);
+		x--;
+	}
+	printf("%s\n", line);
 }
 
 void menu()
 {
 	int choice = 0;
-	do{
-    	system("clear");
-    	printf("Welcome to TEXT TWIST!\n\n");
-    	printf("1. New game\n2. Help\n3. Exit\nPlease choose your option (1~3): ");
-        scanf("%d", &choice);
-        if(choice == 1)
-        	play_game();
-        else if(choice == 2)
-        	help();
-        else if(choice == 3)
-        	printf("Thanks for playing!!\nExiting...\n");
-    	else
-    		printf("Invalid input! Try again.\n");
-    }while (choice != 3);
+	do
+	{
+		system("clear");
+		printf("Welcome to TEXT TWIST!\n\n");
+		printf("1. New game\n2. Help\n3. Exit\nPlease choose your option (1~3): ");
+		scanf("%d", &choice);
+		if (choice == 1)
+			play_game();
+		else if (choice == 2)
+			help();
+		else if (choice == 3)
+			printf("Thanks for playing!!\nExiting...\n");
+		else
+			printf("Invalid input! Try again.\n");
+	} while (choice != 3);
 }
 
 void flush()
@@ -121,7 +125,8 @@ void flush()
 	while ((c = getchar()) != '\n' && c != EOF)
 	{
 		printf("Unwanted input detected! Press ENTER to go back");
-		while((c = getchar()) != '\n' && c != EOF);
+		while ((c = getchar()) != '\n' && c != EOF)
+			;
 	}
 }
 
@@ -132,17 +137,18 @@ void guesses(int *check, char guess[10], int *end)
 	char string[10];
 	FILE *list;
 	list = fopen("wordlist_Game1.txt", "r");
-	while(fgets(string,10,list)){
-		string[strcspn(string,"\n")]= '\0';		//strcspn() read string till '\n' and replace with '\0'.	
-		if(strcmp(string,guess)==0)
+	while (fgets(string, 10, list))
+	{
+		string[strcspn(string, "\n")] = '\0'; // strcspn() read string till '\n' and replace with '\0'.
+		if (strcmp(string, guess) == 0)
 			j = 1;
 	}
-	
-	if(j == 1)
+
+	if (j == 1)
 	{
 		printf("%s: VALID WORD\n", guess);
 		printf("----------------------------------------------\n");
-		
+
 		*check = 1;
 	}
 	else
@@ -151,16 +157,15 @@ void guesses(int *check, char guess[10], int *end)
 		printf("----------------------------------------------\n");
 		*check = 0;
 	}
-		
-	while(fgets(string,10,list))
+
+	while (fgets(string, 10, list))
 		*end += 1;
 	fclose(list);
-	
 }
 
 /*void points(int *point){
 	while(fgets(string,10,list)){
-		string[strcspn(string,"\n")]= '\0';		//strcspn() read string till '\n' and replace with '\0'.	
+		string[strcspn(string,"\n")]= '\0';		//strcspn() read string till '\n' and replace with '\0'.
 		if(strcmp(string,guess)==0)
 			j = 1;
 	}
