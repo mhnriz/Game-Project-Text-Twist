@@ -8,7 +8,7 @@ void menu();
 void game_set();
 void flush();
 void guesses(int *check, char guess[10], int *end);
-void points();
+void ended(int points);
 
 // MAIN
 int main()
@@ -30,7 +30,6 @@ void play_game()
 	do
 	{
 		game_set();
-
 		if (check)
 		{
 			for(j = i;j >= 0; j--)
@@ -39,8 +38,7 @@ void play_game()
 				{
 					k = 1;
 					break;
-				}
-				
+				}		
 			}
 			if (k == 1)
 				printf("You have already guessed it! \n");
@@ -52,7 +50,6 @@ void play_game()
 			}
 			k = 0;
 		}
-		printf("i:%d",i);
 		if (i >= 1)
 		{
 			printf("points so far: %d\n", points);
@@ -61,27 +58,23 @@ void play_game()
 				printf("%s ", guessed[j-1]);
 			printf("\n\n");
 		}
-
 		if(i >= end)
 			break;
-
 		printf("Guess a word or END to quit: ");
 		scanf("%s", guess);
+		if(strcmp(guess, "END") == 0)	// strcmp: string comparison; if true return 0
+			break;
 		guesses(&check, guess, &end);
-		printf("%d\n", end);
-		
-		
-	} while (strcmp(guess, "END") != 0); // strcmp: string comparison; if true returnn 0
+	} while (1);
+	
+	ended(points);
 }
 
 void help()
 {
-	printf("Instruction on How To Play.\n\n");
-	/*
-		INSERT INSTRUCTION
-	*/
+	printf("\nInstruction on How To Play.\n\n");
+	printf("You will be given a word.\nYou may guess using only the letter the word has.\nThe longer the word you guessed.\nThe more points you will achieve.\nGOODLUCK :)\n\n");	
 	printf("Press ENTER to go back");
-	getchar();
 	flush();
 }
 
@@ -122,7 +115,8 @@ void menu()
 void flush()
 {
 	int c;
-	while ((c = getchar()) != '\n' && c != EOF)
+	getchar();		//not sure why i need to do this separately to make it work
+	while ((c = getchar()) != '\n' && c != EOF)		//loop getchar till no input buffer
 	{
 		printf("Unwanted input detected! Press ENTER to go back");
 		while ((c = getchar()) != '\n' && c != EOF);
@@ -138,7 +132,7 @@ void guesses(int *check, char guess[10], int *end)
 	list = fopen("wordlist_Game1.txt", "r");
 	while (fgets(string, 10, list))
 	{
-		string[strcspn(string, "\n")] = '\0'; // strcspn() read string till '\n' and replace with '\0'.
+		string[strcspn(string, "\n")] = '\0';		// strcspn() read string till '\n' and replace with '\0'.
 		if (strcmp(string, guess) == 0)
 			j = 1;
 		i++;
@@ -156,10 +150,24 @@ void guesses(int *check, char guess[10], int *end)
 		printf("%s: INVALID WORD\n", guess);
 		printf("----------------------------------------------\n");
 		*check = 0;
-	}
-
-	
-	
+	}	
 	fclose(list);
 }
 
+void ended(int points)
+{
+	char string[10];
+	printf("\nGoodjob! You have managed to get %d points\n\n", points);
+	printf("Here's a list of all the words that could be found\n");
+	printf("----------------------------------------------------\n");
+	FILE *fp;
+	fp = fopen("wordlist_Game1.txt", "r");
+	while(fgets(string,10,fp) !=NULL)
+	{
+		printf("%s",string);
+	}
+	
+	printf("\nThank you for playing!!\n\n");
+	printf("Press ENTER to go back");
+	flush();
+}
