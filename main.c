@@ -20,7 +20,7 @@ int main()
 // FUNCTIONS
 void play_game()
 {
-	int check = 0, points = 0, i = -1, j = 0, k, end = 0;
+	int check = 0, points = 0, i = 0, j, k, end;
 	char guess[16];
 	char guessed[25][10];
 
@@ -33,45 +33,45 @@ void play_game()
 
 		if (check)
 		{
-
-			while (end != 0)
+			for(j = i;j >= 0; j--)
 			{
-				if (guessed[j] == guess)
+				if (strcmp(guessed[j],guess) == 0)
 				{
 					k = 1;
 					break;
 				}
-				j++;
-				end--;
+				
 			}
 			if (k == 1)
 				printf("You have already guessed it! \n");
 			else
 			{
 				points += 2 * strlen(guess);
-				i++;
 				strcpy(guessed[i], guess);
+				i++;
 			}
 			k = 0;
 		}
-
-		if (i >= 0)
+		printf("i:%d",i);
+		if (i >= 1)
 		{
 			printf("points so far: %d\n", points);
 			printf("You have made the following words so far: \n");
+			for (j = 0; j <= i; j++)
+				printf("%s ", guessed[j-1]);
+			printf("\n\n");
 		}
 
-		for (j = 0; j <= i; j++)
-			printf("%s ", guessed[j]);
-
-		if (i >= 0)
-			printf("\n\n");
+		if(i >= end)
+			break;
 
 		printf("Guess a word or END to quit: ");
 		scanf("%s", guess);
 		guesses(&check, guess, &end);
-
-	} while (strcmp(guess, "END") != 0 || i == end); // strcmp: string comparison; if true returnn 0
+		printf("%d\n", end);
+		
+		
+	} while (strcmp(guess, "END") != 0); // strcmp: string comparison; if true returnn 0
 }
 
 void help()
@@ -125,8 +125,7 @@ void flush()
 	while ((c = getchar()) != '\n' && c != EOF)
 	{
 		printf("Unwanted input detected! Press ENTER to go back");
-		while ((c = getchar()) != '\n' && c != EOF)
-			;
+		while ((c = getchar()) != '\n' && c != EOF);
 	}
 }
 
@@ -142,8 +141,9 @@ void guesses(int *check, char guess[10], int *end)
 		string[strcspn(string, "\n")] = '\0'; // strcspn() read string till '\n' and replace with '\0'.
 		if (strcmp(string, guess) == 0)
 			j = 1;
+		i++;
 	}
-
+	*end = i;
 	if (j == 1)
 	{
 		printf("%s: VALID WORD\n", guess);
@@ -158,16 +158,8 @@ void guesses(int *check, char guess[10], int *end)
 		*check = 0;
 	}
 
-	while (fgets(string, 10, list))
-		*end += 1;
+	
+	
 	fclose(list);
 }
 
-/*void points(int *point){
-	while(fgets(string,10,list)){
-		string[strcspn(string,"\n")]= '\0';		//strcspn() read string till '\n' and replace with '\0'.
-		if(strcmp(string,guess)==0)
-			j = 1;
-	}
-}
-*/
