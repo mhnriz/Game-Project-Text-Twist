@@ -39,7 +39,6 @@ void play_game(){
 	char guess[15];
 	int check, counter = 0, i = 0, j, guessed, points = 0;
 	char correct_guess[25][10];
-	
 	system("clear");
 	printf("Here is your puzzle:\n\n");
 	do{
@@ -48,7 +47,7 @@ void play_game(){
 		scanf("%s", guess);
 		if(strcmp(guess,"END") == 0) break;
 		check = 0;
-		guessed=0;
+		guessed = 0;
 		wordlist(&check, guess);
 		for(j = i;j >= 0; j--){
 			if (strcmp(correct_guess[j],guess) == 0){	
@@ -70,9 +69,7 @@ void play_game(){
 				printf("%s ",correct_guess[i]);
 				i++;
 			}
-			printf("\n");
-			
-			
+			printf("\n");	
 		}
 	}while(counter < 20);
 	ended(points);
