@@ -112,7 +112,6 @@ int check_guess(int check, char guess[15], int *counter){
 	else{
 		int i = 0;
 		do{
-			printf("%c\n",guess[i]);
 			if(strlen(guess)<3){
 				printf("TOO SHORT\n");
 				printf("-----------------------------------------------\n");
