@@ -111,6 +111,7 @@ int check_guess(int check, char guess[15], int *counter){
 	}
 	else{
 		int i = 0;
+			printf("%s: ", guess);
 		do{
 			if(strlen(guess)<3){
 				printf("TOO SHORT\n");
@@ -118,13 +119,13 @@ int check_guess(int check, char guess[15], int *counter){
 				return 0;
 			}
 			else if(isdigit(guess[i]) || !isalnum(guess[i])){
-				printf("Invalid symbol/number %c\n",guess[i]);
+				printf("INVALID SYMBOL/NUMBER %c\n",guess[i]);
 				printf("-----------------------------------------------\n");
 				return 0;
 			}
 			i++;
 		}while(i < strlen(guess));
-		printf("%s: INVALID WORD\n", guess);	
+		printf("INVALID WORD\n");	
 		printf("-----------------------------------------------\n");
 		return 0;
 	}
