@@ -100,7 +100,7 @@ void wordlist(int *check, char guess[15]){
 }
 int check_guess(int check, char guess[15], int *counter){
 	
-	if(check == 1){
+	if(check){
 		printf("%s: VALID WORD\n", guess);	
 		printf("-----------------------------------------------\n");
 		*counter = *counter + 1;
@@ -136,11 +136,10 @@ void help(){
 }
 
 void flush(){
-	int c;
 	getchar();
-	while((c = getchar()) != '\n'){
+	while(getchar() != '\n'){
 		printf("Unwanted input detected! Press ENTER to go back");
-		while((c = getchar()) != '\n');
+		while(getchar() != '\n');
 	}
 }
 
