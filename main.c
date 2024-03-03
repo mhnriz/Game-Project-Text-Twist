@@ -31,7 +31,9 @@ void menu(){
 		if(choice == 1) play_game();
 		else if(choice == 2) help();
 		else if(choice == 3) printf("Thanks for playing!!\nExiting...\n");
+		else if(choice <= 0 || choice >= 4) flush();
 		else printf("Invalid input! Try again.\n");
+		 
 	}while(choice != 3);
 }
 
