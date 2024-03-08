@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+
 int main(){
 
 	char string[][10]= {"bob","mike","angela"};
@@ -8,5 +9,5 @@ int main(){
 		printf("%s",string[i]); 
 	 	i++;
 	 }
-
+	printf("test\n");
 }
