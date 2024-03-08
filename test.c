@@ -1,13 +1,22 @@
 #include <stdio.h>
 #include <string.h>
 
-int main(){
+void file(char string_list[25][10]);
 
-	char string[][10]= {"bob","mike","angela"};
-	int i;
-	while(string[i] != '\0'){
-		printf("%s",string[i]); 
-	 	i++;
-	 }
-	printf("test\n");
+int main(){
+	char string_list[25][10];
+	file(string_list);
+	printf("string = %s\n", string_list[2]);
+}
+
+void file(char string_list[25][10]){
+	int i = 0;
+	char string[10];
+	FILE *fp;
+	fp = fopen("wordlist_Game1.txt", "r");
+	
+	while(fgets(string, 10, fp)!='\0'){
+		strcmp(string_list[i],string);
+		i++;
+	}
 }

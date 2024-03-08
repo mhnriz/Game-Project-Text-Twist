@@ -171,8 +171,7 @@ void flush(){
 	}
 }
 
-void ended(int points)
-{
+void ended(int points){
 	char string[10];
 	
 	printf("\nGoodjob! You have managed to get %d points\n\n", points);
