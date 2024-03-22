@@ -258,3 +258,4 @@ void gfx_flush()
 {
 	XFlush(gfx_display);
 }
+
