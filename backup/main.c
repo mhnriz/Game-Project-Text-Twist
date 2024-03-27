@@ -28,177 +28,80 @@ void ended(int points);
 
 //MAIN
 int main(){
-	gfx_open(1300,650,"Text Twist by C.Code");
+	gfx_open(1200,800,"Text Twist by C.Code");
 	gfx_flush();
 	menu();
 
 	return 0;
 }
 
-//Start screen
 void menu(){
 	int kb_key, choice = 0, x = 0, y = 0;
 	while(1){
 		gfx_clear_color(238, 238, 238);
 		gfx_clear();
-		
-		char text[] = "thisisatest";
+
 		gfx_color(34, 40, 49);
-		gfx_text("C.Code", 1230, 630, 1);
-		gfx_text("Welcome to TEXT TWIST", 530, 200, 2);
+		gfx_text("C.Code", 855, 790, 0);
+		gfx_text("Welcome to TEXT TWIST", 370, 260, 2);
 		
 		//centering formula: x = (window.size - width)/2
-		nav_button(550, 290, 200, 50,"PLAY");
-		nav_button(550, 390, 200, 50,"HELP");
-		nav_button(550, 490, 200, 50, "EXIT");
+		button(400, 350, 200, 50,"PLAY");
+		button(400, 450, 200, 50,"HELP");
+		button(400, 550, 200, 50, "EXIT");
 		
-		if((gfx_xpos() >= 545 && gfx_xpos() <= 755) && (gfx_ypos() >= 290 && gfx_ypos() <= 340)){
-			nav_button_clicked(550,290, 200, 50,"PLAY");
-			usleep(25000); // 1s = 1*10^6
+		if((gfx_xpos() >= 350 && gfx_xpos() <= 550) && (gfx_ypos() >= 350 && gfx_ypos() <= 350+50)){
+			button_clicked(350,350, 200, 50,"PLAY");
+			usleep(20000); // 1s = 1*10^6
 			play_game();
 
 		}
-        else if((gfx_xpos() >= 545 && gfx_xpos() <= 755) && (gfx_ypos() >= 390 && gfx_ypos() <= 440)){
-			nav_button_clicked(550,390,200, 50,"HELP");
-			usleep(25000); 
-			printf("testing");
+        else if((gfx_xpos() >= 350 && gfx_xpos() <= 550) && (gfx_ypos() >= 450 && gfx_ypos() <= 450+30)){
+			button_clicked(350,450,200, 30,"HELP");
+			usleep(20000); // 1s = 1*10^6
 			help();
 		}
-		else if((gfx_xpos() >= 545 && gfx_xpos() <= 755) && (gfx_ypos() >= 490 && gfx_ypos() <= 540)){
-			nav_button_clicked(550,490, 200, 50, "EXIT");
-			usleep(25000);
+		else if((gfx_xpos() >= 400 && gfx_xpos() <= 500) && (gfx_ypos() >= 550 && gfx_ypos() <= 550+50)){
+			button_clicked(400,550, 100, 50, "EXIT");
+			usleep(20000); // 1s = 1*10^6
 			exit(0);
 		}
-		else
-			gfx_wait();
+		else{
+			kb_key = gfx_wait();
+			printf("x %d\n",gfx_xpos());
+			printf("y %d\n",gfx_ypos());
+			if(kb_key == 0x1B) exit(0); //esc key
+			gfx_clear();
+		}
 	}
 }
 
-//Game logic
+
 void play_game(){
-	int set_no, c, counter = 0, i = 0, j = 0, k, l, y , x, points = 0,end=0, proceed = 1, count;
-	char guess[10], set[10], no_string[10], correct_guess[35][10], chs[10], ch, chr[2];
-	char guess_list[35][10];
-	
+	int set_no, c, counter = 0, i = 0, j, k, l, points = 0,end=0;
+	char guess[10], set[10], correct_guess[35][10], temp[10], chr[10];
+	char string_list[35][10];
 	game_set(set,&set_no);
-	wordlist(set, set_no, &end,guess_list);
-	//strcpy(temp, set);
+	wordlist(set, set_no, &end,string_list);
 	gfx_clear();
 	while(1){
+		int check = 0, guessed = 0,x = 150, y = 525, redo = 1, k = 0, l = 0, proceed = 1;
 
-		start:
+		gfx_color(34, 40, 49);
+		gfx_text("Here is your puzzle:", 150,150,2);
+		gfx_text(set, 150,180,2);
 
-		//interactive ui
-		int check = 0, guessed = 0, redo = 1, go = 0;
+		gfx_text("Guess a word: ", 200,300,2);
+		input_box(400,300, 100, 50, guess, &redo);
+		button(100,700,200,50,"Exit");
+		button(100,700,350,50,"Help");
 
-		//Guess board
-		guess_board(50, 1300, end, guess_list);
-		if(counter > 0){
-			guess_board_letter(50, 1300, end, counter, guess_list, correct_guess);
-
-			// x = ((xsize-(round*310))/2) + l;
-			// for(j = 0; j < end; j++){
-			// 	for(k = 0; k < counter;k++){
-			// 		if(strcmp(guess_list[j],correct_guess[k]) == 0){
-			// 			for(l = j; )
-			// 		}
-			// 	}
-			// }
-		}
-		//input_box(400,300, 100, 50, guess, &redo);
-
-		nav_button(10,590,100,50,"END?");
-		if((gfx_xpos() >= 50 && gfx_xpos() <= 150) && (gfx_ypos() >= 550 && gfx_ypos() <= 600)){
-			nav_button_clicked(50,550,100,50,"END?");
-			usleep(25000);
-			menu();
-		}
-		nav_button(160,590,100,50,"Help");
-		if((gfx_xpos() >= 200 && gfx_xpos() <= 300) && (gfx_ypos() >= 550 && gfx_ypos() <= 600)){
-			nav_button_clicked(50,550,100,50,"END?");
-			usleep(25000);
-			do{
-			help();
-			}while(gfx_wait() != 0x01);
-			gfx_clear();
-			goto start;
-		}
-		
-		nav_button(1000,460,100,50,"Enter");
-		if((gfx_xpos() >= 1000 && gfx_xpos() <= 1100) && (gfx_ypos() >= 460 && gfx_ypos() <= 510)){
-			if(guess != " "){ 
-				go = 1;
-			}
-		}
-
-		// nav_button(1000,530,100,50,"Delete");
-		// if((gfx_xpos() >= 200 && gfx_xpos() <= 300) && (gfx_ypos() >= 550 && gfx_ypos() <= 600)){
-			
-		// }
-
-		//(xsize-(button.size * strlen + button.gap * strlen-1))/2
-		int x = (1300-((50*strlen(set)+(30 * (strlen(set)-1)))))/2;
-		//Puzzle letter
-		puzzle_letter(x, 500, 1300, set);
-		
-		if(proceed){
-			for(k = 0; k < strlen(set); k++){
-				count = 0;
-				for(l = 0; l < strlen(set); l++ ){
-					if(set[k] == set[l]) count++;
-				}
-				no_string[k] = count;
-			}
-		}
+		strcpy(temp,guess);
+		if(c == 0x1B) exit(0); //esc key
+		gfx_clear();
 
 		
-		k=0;
-		do{
-			
-			if(gfx_xpos() >= x+(k*100) && gfx_xpos() <= x+(k*100)+50){
-				ch = set[k];
-				proceed = 0;
-				
-				for(l = 0; l < strlen(set);l++){
-					
-					if(ch == set[l] && no_string[l] > 0){
-						proceed = 1;
-						count = no_string[l];
-						printf("no_string[%d] before: %d\n", l, no_string[l]);
-						count -= 1;
-						no_string[l] = count;
-						printf("no_string[%d] after: %d\n\n", l, no_string[l]);
-					}
-
-				}
-				if(proceed){
-					//convert char to string
-					chs[j] = ch;
-					chs[j+1] = '\0';
-					sprintf(chr,"%c", ch);
-					gfx_text(chr, x+(j*100), 520,1);
-					j++;
-				}
-				
-			}
-			k++;
-			if(k > strlen(set)) break;
-			
-		} while((gfx_xpos() >= x && gfx_xpos() <= x+(strlen(set)*100)) && (gfx_ypos() >= 500 && gfx_ypos() <= 550));
-		
-		proceed = 0;
-		strcpy(guess,chs);
-		printf("guess %s\n", chs);
-		
-
-
-		// nav_button(1000,530,100,50,"Delete");
-		// if((gfx_xpos() >= 200 && gfx_xpos() <= 300) && (gfx_ypos() >= 550 && gfx_ypos() <= 600)){
-			
-		// 	}
-		
-		
-		if(go){
+		if(!redo){
 			for(j = i;j >= 0; j--){
 				if (strcmp(correct_guess[j],guess) == 0){
 
@@ -211,45 +114,39 @@ void play_game(){
 				}
 			}
 			
-			if(guessed == 0) check_guess(&check, guess, &counter,end, guess_list);
+			if(guessed == 0) check_guess(&check, guess, &counter,end, string_list);
 			
 			if(check == 1 && guessed == 0){
 				strcpy(correct_guess[counter-1],guess);
 				points += 2*strlen(guess);
 			}
-			char guess[10], no_string[10];
-			proceed = 1;
-			j = 0;
-		
-
-		
-
-			// gfx_color(34, 40, 49);
-			// gfx_text("You made the following words so far: ",200,500,2);
-			// printf("counter %d\n", counter);
-			// printf("You made the following words so far: ");
-			// i=0;
-			// while(i < counter){
-			// 	printf("%s ",correct_guess[i]);
-			// 	if(i%10 == 0){
-			// 		y = 525;
-			// 		x += 100;
-					
-			// 	}
-			// 	gfx_text(correct_guess[i],x,y,2);
-			// 	i++;
-			// 	y += 25;
-			// }
-			// printf("\n");	
 		}
-		if(counter == end) break;
-		gfx_wait();
-		gfx_clear();
-	
+
+		if(counter > 0){
+			gfx_color(34, 40, 49);
+			gfx_text("You made the following words so far: ",200,500,2);
+			printf("counter %d\n", counter);
+			printf("You made the following words so far: ");
+			i=0;
+			while(i < counter){
+				printf("%s ",correct_guess[i]);
+				if(i%10 == 0){
+					y = 525;
+					x += 100;
+					
+				}
+				gfx_text(correct_guess[i],x,y,2);
+				i++;
+				y += 25;
+			}
+			printf("\n");	
+		}
+		if(counter == end) break;		
+
 	}
 	ended(points);
 }	
-//Setting game by its gameset pulled from file
+
 void game_set(char set[10], int *set_no){
 	int x;
 	srand(time(NULL));
@@ -261,14 +158,15 @@ void game_set(char set[10], int *set_no){
 	fp = fopen("GameSets.txt","r");
 	
 	while(x > 0){
-		fgets(set,10,fp);
+		fgets(line,10,fp);
 		x--;
 		
 	}
+	
 	fclose(fp);
+	strcpy(set,line);
 }
 
-//Pull respective gameset's wordlist and store in a array[][].
 void wordlist(char set[10], int y, int *end, char string_list[35][10]){
 	char string[10], *text[19], temp[10], c[10], temp_list[35][10];
 	int i, j, k, proceed;
@@ -302,19 +200,15 @@ void wordlist(char set[10], int y, int *end, char string_list[35][10]){
 	for(i=0;i < *end; i++){
 		proceed = 1;
 		strcpy(temp,temp_list[i]);
-
 		for(j = 0;j < *end;j++)
 			if(strcmp(temp,string_list[j]) == 0){
 				proceed=0;
 			}
-
 		if(proceed){
 			strcpy(string_list[k],temp);
-			
 			k++;
-			}
+		}
 	}
-	*end = k;
 	
     
 	printf("file lines %d\n", *end);
@@ -369,6 +263,8 @@ int check_guess(int *check, char guess[10], int *counter,int end, char string_li
 }
 
 void help(){
+	int c;
+	do{
 	gfx_clear();
 	gfx_color(34, 40, 49);
 	gfx_text("Instruction on How To Play.", 200,200,1);			
@@ -377,7 +273,7 @@ void help(){
 	gfx_text("The longer the word you guessed",200,260,1);
 	gfx_text("The more points you will achieve. GOODLUCK :)",200,280,1);
 	gfx_text("Press anywhere to go back", 200, 300,1);
-	
+	}while(gfx_wait() != 0x01);
 
 }
 

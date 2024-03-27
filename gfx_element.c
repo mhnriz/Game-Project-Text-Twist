@@ -3,7 +3,7 @@
 #include <ctype.h>
 #include "gfx.h"
 //4px = 1px;
-int button(int x, int y, int width, int height, char text[10]){
+int nav_button(int x, int y, int width, int height, char text[10]){
 
     //int x = (900-width)/2;
     //int y = b;
@@ -18,7 +18,7 @@ int button(int x, int y, int width, int height, char text[10]){
     
 }
 
-void button_clicked(int x, int y, int width, int height, char text[10]){
+void nav_button_clicked(int x, int y, int width, int height, char text[10]){
 
     gfx_color(24, 30, 39);
     gfx_fillrectangle(x+(width/12.5)/2,y-4,(width*0.93),4);
@@ -32,94 +32,121 @@ void button_clicked(int x, int y, int width, int height, char text[10]){
     
 }
 
-void background_brick(int x, int y){
-    gfx_color(18,21,27);
-    gfx_fillrectangle(x,y,80,36);
-    gfx_color(27,30,35);
-    gfx_fillrectangle(x,y+4,80,4);
-    gfx_color(10,12,19);
-    gfx_fillrectangle(x,y,80,4);    //top
-    gfx_fillrectangle(x,y,4,36);    
-    gfx_fillrectangle(x-4,y+4,12,4);
-    gfx_fillrectangle(x,y+32,80,4);    //bottom
-    gfx_fillrectangle(x-4,y+28,12,4);
-    gfx_fillrectangle(x+76,y,4,36);
-    //gfx_line(10,20,90,56);
-} //y = 36
+int word_button(int x, int y, int width, int height){
 
-void background(int x, int y){
-    for(x = 0; x <= 900;x+=76){
-		printf("%d\n", x);	
-		if(x == 836){
-		    background_brick(x,y);
-		    x = -38;
-		    y += 36;
-		}
-		else if(x == 874){	
-			background_brick(x,y);
-			x = 0;
-			y += 36;
-		}
-		else if(y > 899) break;
-		    background_brick(x,y);
-    }
-}
-
-void foreground_brick(int x, int y){
-    gfx_color(34,38,45);
-    gfx_fillrectangle(x,y,80,36);
-    gfx_color(48,52,57);
-    gfx_fillrectangle(x,y+4,80,4);
-    gfx_color(21,24,31);
-    gfx_fillrectangle(x,y,80,4);    //top
-    gfx_fillrectangle(x,y,4,36);    
-    gfx_fillrectangle(x-4,y+4,12,4);
-    gfx_fillrectangle(x,y+32,80,4);    //bottom
-    gfx_fillrectangle(x-4,y+28,12,4);
-    gfx_fillrectangle(x+76,y,4,36);
-    //gfx_line(10,20,90,56);
-} //y = 36
-
-void foreground(int x, int y){
-    for(x = 0; x <= 900;x+=76){
-		printf("%d\n", x);	
-		if(x == 836){
-		    foreground_brick(x,y);
-		    x = -38;
-		    y += 36;
-		}
-		else if(x == 874){	
-			foreground_brick(x,y);
-			x = 0;
-			y += 36;
-		}
-		else if(y > 899) break;
-		    foreground_brick(x,y);
-    }
-}
-
-void input_box(int x, int y, char input[10]){
-    int c, i = 0;
-    char text[10] = "";
-    gfx_color(71, 80, 87);
-    gfx_rectangle(x,y,100,50);
-    while(c != 0x20){
-        c = gfx_wait(); 
-        if(c == 0x20){
-            strcpy(input,text);
-            input[strlen(input)]='\0';
-            printf("%s\n", input);
-        }
-        else if(isgraph((char)c)){
-            text[i]=toupper((char)c);
-            printf("%s\n", text);
-            gfx_rectangle(x,y,100,50);
-            gfx_text(text,x,y,2);
-            i++;
-           
-            
-        }
+    //int x = (900-width)/2;
+    //int y = b;
     
+    gfx_fillrectangle(x+(width/12.5)/2,y-4,(width*0.93),4);
+    gfx_fillrectangle(x-4,y+(height*0.18),4,height*0.6);
+    gfx_fillrectangle(x,y,width,height); //center box 200, 50
+    gfx_fillrectangle(x+(width/12.5)/2,y+height,(width*0.93),4);
+    gfx_fillrectangle(x+width,y+(height*0.18),4,height*0.6);
+    
+    
+}
+
+void word_button_clicked(int x, int y, int width, int height){
+
+    gfx_color(24, 30, 39);
+    gfx_fillrectangle(x+(width/12.5)/2,y-4,(width*0.93),4);
+    gfx_fillrectangle(x-4,y+(height*0.18),4,height*0.6);
+    gfx_fillrectangle(x,y,width,height); //center box 200, 50
+    gfx_fillrectangle(x+(width/12.5)/2,y+height,(width*0.93),4);
+    gfx_fillrectangle(x+width,y+(height*0.18),4,height*0.6);
+   
+    
+}
+
+void input_box(int x, int y, int width, int height, char input[10], int *redo){
+    int c, i = 0, a, b;
+    char text[10] = "";
+	gfx_color(34, 40, 49);
+    gfx_rectangle(x,y,width,height);
+    
+
+    // while(1){
+    //     c = gfx_wait(); 
+    //     if(c == 0x20){
+    //         strcpy(input,text);
+    //         input[strlen(input)]='\0';
+    //         printf("%s\n", input);
+    //         *redo = 0;
+    //         break;
+    //     }
+    //     else if(c == 0x08){
+    //         *redo = 1;
+    //         break;
+    //     }
+    //     else if(c == 0x01){
+    //         *redo = 1;
+    //         break;
+    //     }
+    //     else if(isgraph((char)c)){
+    //         if(i <=10) text[i]=toupper((char)c);
+    //         printf("%s\n", text);
+    //         gfx_color(34, 40, 49);
+    //         //gfx_rectangle(x,y,100,50);
+    //         gfx_text(text,x+15,y+10,2);
+    //         i++;
+    //     }
+
+    // }
+}
+
+void puzzle_letter(int x, int y, int xsize, char set[10]){
+    int i;
+    char chr[2], ch;
+    //(1300-(button.size * strlen + button.gap * strlen-1))/2	//
+    
+    for(i = 0; i <strlen(set)-1; i++, x += 100){
+        gfx_color(34, 40, 49);
+        word_button(x,y,50,50);
+        gfx_color(255,255,255);
+        ch = set[i];
+        sprintf(chr,"%c", ch);
+        gfx_text(chr,x+(50/2.5),y+(50/2.5),1);
     }
 }
 
+
+
+void guess_board(int y, int xsize, int end, char guess_list[35][10]){
+    int i, j, l, x;
+    float round = end/7;
+    if((round-(int)round) >= 0.5) round = (int)round + 1;
+    for(i = 0, l = 0; i < end; i++, y += 50){
+        x = ((xsize-(round*310))/2) + l;
+        for(j = 0; j < strlen(guess_list[i]); j++, x += 45){
+            gfx_color(34, 40, 49);
+            word_button(x,y,30,30);
+        }
+        if(y >= 350){ 
+            y = 0;
+            l += 230;
+        }
+    }
+
+}
+void guess_board_letter(int y, int xsize, int end, int counter, char guess_list[35][10], char correct_guess[35][10]){
+    int i, j, k, l = 0, x;
+    float round = end/7;
+    if((round-(int)round) >= 0.5) round = (int)round + 1;
+    x = ((xsize-(round*310))/2) + l;
+        for(i = 0; i < end; i++){
+            for(j = 0; j < counter; j++){
+                if(strcmp(guess_list[i],correct_guess[j]) == 0){
+                
+                     for(k = 0; k < i;k++, y += 50, x += 45){
+                        printf("testing");
+                        if(y >=350){
+                            y = 0;
+                            l += 230;
+                        }
+                     }
+                gfx_color(100,100,100);
+                gfx_text(correct_guess[j],x,y,1);
+                 }
+            }
+        }
+}// do separate loops
