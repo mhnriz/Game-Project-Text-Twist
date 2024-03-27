@@ -92,9 +92,8 @@ void play_game(){
 		int check = 0, guessed = 0, redo = 1, go = 0;
 
 		//Guess board
-		guess_board(50, 1300, end, guess_list);
-		if(counter > 0){
-			guess_board_letter(50, 1300, end, counter, guess_list, correct_guess);
+		guess_board(50, 1300, end, counter, guess_list, correct_guess);
+		
 
 			// x = ((xsize-(round*310))/2) + l;
 			// for(j = 0; j < end; j++){
@@ -104,18 +103,18 @@ void play_game(){
 			// 		}
 			// 	}
 			// }
-		}
+		//}
 		//input_box(400,300, 100, 50, guess, &redo);
 
 		nav_button(10,590,100,50,"END?");
-		if((gfx_xpos() >= 50 && gfx_xpos() <= 150) && (gfx_ypos() >= 550 && gfx_ypos() <= 600)){
-			nav_button_clicked(50,550,100,50,"END?");
+		if((gfx_xpos() >= 10 && gfx_xpos() <= 110) && (gfx_ypos() >= 590 && gfx_ypos() <= 640)){
+			nav_button_clicked(10,590,100,50,"END?");
 			usleep(25000);
 			menu();
 		}
 		nav_button(160,590,100,50,"Help");
-		if((gfx_xpos() >= 200 && gfx_xpos() <= 300) && (gfx_ypos() >= 550 && gfx_ypos() <= 600)){
-			nav_button_clicked(50,550,100,50,"END?");
+		if((gfx_xpos() >= 160 && gfx_xpos() <= 260) && (gfx_ypos() >= 590 && gfx_ypos() <= 640)){
+			nav_button_clicked(160,590,100,50,"END?");
 			usleep(25000);
 			do{
 			help();
@@ -124,6 +123,13 @@ void play_game(){
 			goto start;
 		}
 		
+		nav_button(10,530,100,50,"TWIST");
+			if((gfx_xpos() >= 10 && gfx_xpos() <= 110) && (gfx_ypos() >= 530 && gfx_ypos() <= 580)){
+				nav_button_clicked(10,530,100,50,"END?");
+				usleep(25000);
+				
+			}
+
 		nav_button(1000,460,100,50,"Enter");
 		if((gfx_xpos() >= 1000 && gfx_xpos() <= 1100) && (gfx_ypos() >= 460 && gfx_ypos() <= 510)){
 			if(guess != " "){ 
@@ -153,7 +159,7 @@ void play_game(){
 
 		
 		k=0;
-		do{
+		while((gfx_xpos() >= x && gfx_xpos() <= x+((strlen(set)-1)*100)) && (gfx_ypos() >= 500 && gfx_ypos() <= 550)){
 			
 			if(gfx_xpos() >= x+(k*100) && gfx_xpos() <= x+(k*100)+50){
 				ch = set[k];
@@ -184,8 +190,7 @@ void play_game(){
 			k++;
 			if(k > strlen(set)) break;
 			
-		} while((gfx_xpos() >= x && gfx_xpos() <= x+(strlen(set)*100)) && (gfx_ypos() >= 500 && gfx_ypos() <= 550));
-		
+		}
 		proceed = 0;
 		strcpy(guess,chs);
 		printf("guess %s\n", chs);
@@ -220,6 +225,7 @@ void play_game(){
 			char guess[10], no_string[10];
 			proceed = 1;
 			j = 0;
+			strcpy(guess, " ");
 		
 
 		
@@ -243,6 +249,9 @@ void play_game(){
 			// printf("\n");	
 		}
 		if(counter == end) break;
+		if(counter > 0){
+			guess_board_letter(50, 1300, end, counter, guess_list, correct_guess);
+		}
 		gfx_wait();
 		gfx_clear();
 	
@@ -332,9 +341,9 @@ int check_guess(int *check, char guess[10], int *counter,int end, char string_li
 		}
 		i++;
 	}
-
+	gfx_color(34, 40, 49);
 	if(*check){
-		gfx_text("VALID WORD!",600,310,2);
+		gfx_text("VALID WORD!",600,410,2);
 		printf("%s: VALID WORD\n", guess);	
 		printf("-----------------------------------------------\n");
 		*counter = *counter + 1;
@@ -347,13 +356,13 @@ int check_guess(int *check, char guess[10], int *counter,int end, char string_li
 		
 		do{
 			if(strlen(guess)<3){
-				gfx_text("TOO SHORT!",600,310,2);
+				gfx_text("TOO SHORT!",600,410,2);
 				printf("TOO SHORT\n");
 				printf("-----------------------------------------------\n");
 				return 0;
 			}
 			else if(isdigit(guess[i]) || !isalnum(guess[i])){
-				gfx_text("INVALID SYMBOL/NUMBER",600,310,2);
+				gfx_text("INVALID SYMBOL/NUMBER",600,410,2);
 				printf("INVALID SYMBOL/NUMBER %c\n",guess[i]);
 				printf("-----------------------------------------------\n");
 				return 0;

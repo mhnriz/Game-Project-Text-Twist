@@ -10,5 +10,5 @@ void torch(int x, int y);
 void display_text(int x, int y, char input[10]);
 void input_box(int x, int y, int width, int height, char input[10], int *redo);
 void puzzle_letter(int x, int y, int xsize, char set[10]);
-void guess_board(int y, int xsize, int end, char guess_list[35][10]);
+void guess_board(int y, int xsize, int end, int counter, char guess_list[35][10], char correct_guess[35][10]);
 void guess_board_letter(int y, int xsize, int end, int counter, char guess_list[35][10], char correct_guess[35][10]);

@@ -111,15 +111,19 @@ void puzzle_letter(int x, int y, int xsize, char set[10]){
 
 
 
-void guess_board(int y, int xsize, int end, char guess_list[35][10]){
+void guess_board(int y, int xsize, int end, int counter, char guess_list[35][10], char correct_guess[35][10]){
     int i, j, l, x;
     float round = end/7;
+    
     if((round-(int)round) >= 0.5) round = (int)round + 1;
     for(i = 0, l = 0; i < end; i++, y += 50){
         x = ((xsize-(round*310))/2) + l;
         for(j = 0; j < strlen(guess_list[i]); j++, x += 45){
+            
             gfx_color(34, 40, 49);
-            word_button(x,y,30,30);
+            word_button(x,y,30,30);    
+            gfx_color(100,100,100);
+            
         }
         if(y >= 350){ 
             y = 0;
@@ -129,24 +133,34 @@ void guess_board(int y, int xsize, int end, char guess_list[35][10]){
 
 }
 void guess_board_letter(int y, int xsize, int end, int counter, char guess_list[35][10], char correct_guess[35][10]){
-    int i, j, k, l = 0, x;
+    int i, j, k, l, x;
     float round = end/7;
+    char temp[10], chs[2];
     if((round-(int)round) >= 0.5) round = (int)round + 1;
-    x = ((xsize-(round*310))/2) + l;
-        for(i = 0; i < end; i++){
-            for(j = 0; j < counter; j++){
-                if(strcmp(guess_list[i],correct_guess[j]) == 0){
+    for(i = 0; i < counter; i++){
+        y = 50;
+        x = ((xsize-(round*310))/2);
+        
+        for(j = 0; j < end; j++, y += 50){
+            if(strcmp(guess_list[j],correct_guess[i]) == 0){
+                printf("test x%d y%d\n", x,y);
+                gfx_color(255,255,255);
+                strcpy(temp,correct_guess[i]);
+                for(k = 0; k < strlen(temp); k++){
+                    chs[0] = temp[k];
+                    chs[1] = '\0';
+                    gfx_text(chs,x+(50*k-(k*5))+10,y+5,1);
+                }
                 
-                     for(k = 0; k < i;k++, y += 50, x += 45){
-                        printf("testing");
-                        if(y >=350){
-                            y = 0;
-                            l += 230;
-                        }
-                     }
-                gfx_color(100,100,100);
-                gfx_text(correct_guess[j],x,y,1);
-                 }
+                l = 0;
+            } 
+            if(y >= 350){    
+                y = 0;
+                x +=230;
             }
+                
+            
         }
+        
+    }
 }// do separate loops
