@@ -94,63 +94,6 @@ void play_game(){
 		//Guess board
 		guess_board(-20, 1300, end, counter, guess_list, correct_guess);
 
-		button(1230,15,100,40,"END?", -20);
-		if((gfx_xpos() >= 1230 && gfx_xpos() <= 1330) && (gfx_ypos() >= 15 && gfx_ypos() <= 55)){
-			button_clicked(1230,15,100,40,"END?", -10);
-			usleep(25000);
-			menu();
-		}
-		button(1230,75,100,40,"Help", -10);
-		if((gfx_xpos() >= 1230 && gfx_xpos() <= 1330) && (gfx_ypos() >= 75 && gfx_ypos() <= 115)){
-			button_clicked(1230,75,100,40,"END?",-10);
-			usleep(25000);
-			do{
-				help();
-			}while(gfx_wait() != 0x01);
-			gfx_clear();
-			goto start;
-		}
-		
-		button(1230,135,100,40,"TWIST", -10);
-			if((gfx_xpos() >= 1230 && gfx_xpos() <= 1330) && (gfx_ypos() >= 135 && gfx_ypos() <= 175)){
-				button_clicked(1230,135,100,40,"TWIST", -10);
-				usleep(25000);
-				strcpy(temp_set,set);
-				if(n == 0){
-					for(k = 0, l = strlen(temp_set)-1; k < strlen(temp_set)-1;k++, l--){
-							set[l] = temp_set[k];
-							
-					}
-					n = 1;
-				}
-				else{
-					for(k = 1, l = strlen(temp_set)-1; k < strlen(temp_set)-1;k++, l--){
-							set[l] = temp_set[k];
-							
-					}
-					n = 0;
-				}
-				printf("n value: %d", n);
-				proceed = 1;
-				j = 0;
-				char guess[10], no_string[10];
-			}
-
-				
-			
-
-		button(1000,460,100,50,"Enter", 0);
-		if((gfx_xpos() >= 1000 && gfx_xpos() <= 1100) && (gfx_ypos() >= 460 && gfx_ypos() <= 510)){
-			if(guess != " "){ 
-				go = 1;
-			}
-		}
-
-		// button(1000,530,100,50,"Delete");
-		// if((gfx_xpos() >= 200 && gfx_xpos() <= 300) && (gfx_ypos() >= 550 && gfx_ypos() <= 600)){
-			
-		// }
-
 		//(xsize-(button.size * strlen + button.gap * strlen-1))/2
 		int x = (1300-((50*strlen(set)+(30 * (strlen(set)-1)))))/2;
 		//Puzzle letter
@@ -210,47 +153,106 @@ void play_game(){
 		
 		printf("guess %s\n", chs);
 		
+		if((gfx_xpos() >= 1000 && gfx_xpos() <= 1100) && (gfx_ypos() >= 300 && gfx_ypos() <= 350)){
+			button_clicked(1000,300,100,50,"Enter", 0);
+			usleep(25000);
+			if(guess != " "){ 
+				for(j = i;j >= 0; j--){
+					if (strcmp(correct_guess[j],guess) == 0){
 
-
-		// button(1000,530,100,50,"Delete");
-		// if((gfx_xpos() >= 200 && gfx_xpos() <= 300) && (gfx_ypos() >= 550 && gfx_ypos() <= 600)){
-			
-		// 	}
-		
-		
-		if(go){
-			for(j = i;j >= 0; j--){
-				if (strcmp(correct_guess[j],guess) == 0){
-
-					gfx_color(34, 40, 49);	
-					printf("test\n");
-					gfx_text("You have already guessed it!",200, 400,1);
-					printf("You have already guessed it!\n");
-					printf("-----------------------------------------------\n");
-					guessed = 1;
+						gfx_color(34, 40, 49);	
+						printf("test\n");
+						gfx_text("You have already guessed it!",200, 400,1);
+						printf("You have already guessed it!\n");
+						printf("-----------------------------------------------\n");
+						guessed = 1;
+					}
 				}
-			}
 			
-			if(guessed == 0) check_guess(&check, guess, &counter,end, guess_list);
+				if(guessed == 0) check_guess(&check, guess, &counter,end, guess_list);
 			
-			if(check == 1 && guessed == 0){
-				strcpy(correct_guess[counter-1],guess);
-				points += 2*strlen(guess);
+				if(check == 1 && guessed == 0){
+					strcpy(correct_guess[counter-1],guess);
+					points += 2*strlen(guess);
+				}
+				
+			
 			}
+			strcpy(chs,"er");
+
+			no_string[10];
+			proceed = 1;
+			j = 0;
+			m = 0;
+			if(counter == end) goto end;	
+		}		
+
+		//buttons
+	 	guess_board_letter(1300, end, counter, guess_list, correct_guess);
+		button(1230,15,100,40,"END?", -20);
+		button(1230,75,100,40,"Help", -10);
+		button(1230,135,100,40,"TWIST", -10);
+		button(1000,300,100,50,"Enter", 0);
+		button(1000,370,100,50,"Delete", 0);
+		input_box(x, 300, guess, set, m);
+		gfx_wait();
+
+		//buttons operation
+		if((gfx_xpos() >= 1230 && gfx_xpos() <= 1330) && (gfx_ypos() >= 15 && gfx_ypos() <= 55)){
+			button_clicked(1230,15,100,40,"END?", -20);
+			usleep(25000);
+			goto end;
+		}
+
+		if((gfx_xpos() >= 1230 && gfx_xpos() <= 1330) && (gfx_ypos() >= 75 && gfx_ypos() <= 115)){
+			button_clicked(1230,75,100,40,"HELP",-10);
+			usleep(25000);
+			do{
+				help();
+			}while(gfx_wait() != 0x01);
+			gfx_clear();
+			goto start;
+		}
+		
+		if((gfx_xpos() >= 1230 && gfx_xpos() <= 1330) && (gfx_ypos() >= 135 && gfx_ypos() <= 175)){
+			button_clicked(1230,135,100,40,"TWIST", -10);
+			usleep(25000);
+			strcpy(temp_set,set);
+			if(n == 0){
+				for(k = 0, l = strlen(temp_set)-1; k < strlen(temp_set)-1;k++, l--){
+						set[l] = temp_set[k];
+						
+				}
+				n = 1;
+			}
+			else{
+				for(k = 1, l = strlen(temp_set)-1; k < strlen(temp_set)-1;k++, l--){
+						set[l] = temp_set[k];
+						
+				}
+				n = 0;
+			}
+			printf("n value: %d", n);
+			proceed = 1;
+			j = 0;
+			char guess[10], no_string[10];
+		}
+		//enter button
+
+		
+		//de
+		if((gfx_xpos() >= 1000 && gfx_xpos() <= 1100) && (gfx_ypos() >= 370 && gfx_ypos() <= 420)){
+			button_clicked(1000,370,100,50,"Delete", 0);
+			usleep(25000);
 			char guess[10], no_string[10];
 			proceed = 1;
 			j = 0;
 			m = 0;
-			
 		}
-		if(counter == end) break;
-	 	guess_board_letter(1300, end, counter, guess_list, correct_guess);
-		// }
-		input_box(x, 300, guess, set, m);
-		gfx_wait();
 		gfx_clear();
 	
 	}
+	end:
 	ended(points);
 }	
 //Setting game by its gameset pulled from file
@@ -338,7 +340,7 @@ int check_guess(int *check, char guess[10], int *counter,int end, char string_li
 	}
 	gfx_color(34, 40, 49);
 	if(*check){
-		gfx_text("VALID WORD!",600,410,2);
+		gfx_text("VALID WORD!",600,510,2);
 		printf("%s: VALID WORD\n", guess);	
 		printf("-----------------------------------------------\n");
 		*counter = *counter + 1;
@@ -351,20 +353,20 @@ int check_guess(int *check, char guess[10], int *counter,int end, char string_li
 		
 		do{
 			if(strlen(guess)<3){
-				gfx_text("TOO SHORT!",600,410,2);
+				gfx_text("TOO SHORT!",600,510,2);
 				printf("TOO SHORT\n");
 				printf("-----------------------------------------------\n");
 				return 0;
 			}
 			else if(isdigit(guess[i]) || !isalnum(guess[i])){
-				gfx_text("INVALID SYMBOL/NUMBER",600,410,2);
+				gfx_text("INVALID SYMBOL/NUMBER",600,510,2);
 				printf("INVALID SYMBOL/NUMBER %c\n",guess[i]);
 				printf("-----------------------------------------------\n");
 				return 0;
 			}
 			i++;
 		}while(i < strlen(guess));
-		gfx_text("INVALID WORD!",600,310,2);
+		gfx_text("INVALID WORD!",600,510,2);
 		printf("INVALID WORD\n");
 		printf("-----------------------------------------------\n");
 		
