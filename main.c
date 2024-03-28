@@ -53,19 +53,19 @@ void menu(){
 		nav_button(550, 490, 200, 50, "EXIT");
 		
 		if((gfx_xpos() >= 545 && gfx_xpos() <= 755) && (gfx_ypos() >= 290 && gfx_ypos() <= 340)){
-			nav_button_clicked(550,290, 200, 50,"PLAY");
+			nav_button(550,290, 200, 50,"PLAY");
 			usleep(25000); // 1s = 1*10^6
 			play_game();
 
 		}
         else if((gfx_xpos() >= 545 && gfx_xpos() <= 755) && (gfx_ypos() >= 390 && gfx_ypos() <= 440)){
-			nav_button_clicked(550,390,200, 50,"HELP");
+			nav_button(550,390,200, 50,"HELP");
 			usleep(25000); 
 			printf("testing");
 			help();
 		}
 		else if((gfx_xpos() >= 545 && gfx_xpos() <= 755) && (gfx_ypos() >= 490 && gfx_ypos() <= 540)){
-			nav_button_clicked(550,490, 200, 50, "EXIT");
+			nav_button(550,490, 200, 50, "EXIT");
 			usleep(25000);
 			exit(0);
 		}
@@ -76,8 +76,8 @@ void menu(){
 
 //Game logic
 void play_game(){
-	int set_no, c, counter = 0, i = 0, j = 0, k, l, y , x, points = 0,end=0, proceed = 1, count;
-	char guess[10], set[10], no_string[10], correct_guess[35][10], chs[10], ch, chr[2];
+	int set_no, c, counter = 0, i = 0, j = 0, k, l,m = 0, n, o, y , x, points = 0,end=0, proceed = 1, count, index;
+	char guess[10], set[10], temp_set[10], ran[10], no_string[10], correct_guess[35][10], chs[10], ch, chr[2];
 	char guess_list[35][10];
 	
 	game_set(set,&set_no);
@@ -92,52 +92,61 @@ void play_game(){
 		int check = 0, guessed = 0, redo = 1, go = 0;
 
 		//Guess board
-		guess_board(50, 1300, end, counter, guess_list, correct_guess);
-		
+		guess_board(-20, 1300, end, counter, guess_list, correct_guess);
 
-			// x = ((xsize-(round*310))/2) + l;
-			// for(j = 0; j < end; j++){
-			// 	for(k = 0; k < counter;k++){
-			// 		if(strcmp(guess_list[j],correct_guess[k]) == 0){
-			// 			for(l = j; )
-			// 		}
-			// 	}
-			// }
-		//}
-		//input_box(400,300, 100, 50, guess, &redo);
-
-		nav_button(10,590,100,50,"END?");
-		if((gfx_xpos() >= 10 && gfx_xpos() <= 110) && (gfx_ypos() >= 590 && gfx_ypos() <= 640)){
-			nav_button_clicked(10,590,100,50,"END?");
+		button(1230,15,100,40,"END?", -20);
+		if((gfx_xpos() >= 1230 && gfx_xpos() <= 1330) && (gfx_ypos() >= 15 && gfx_ypos() <= 55)){
+			button_clicked(1230,15,100,40,"END?", -10);
 			usleep(25000);
 			menu();
 		}
-		nav_button(160,590,100,50,"Help");
-		if((gfx_xpos() >= 160 && gfx_xpos() <= 260) && (gfx_ypos() >= 590 && gfx_ypos() <= 640)){
-			nav_button_clicked(160,590,100,50,"END?");
+		button(1230,75,100,40,"Help", -10);
+		if((gfx_xpos() >= 1230 && gfx_xpos() <= 1330) && (gfx_ypos() >= 75 && gfx_ypos() <= 115)){
+			button_clicked(1230,75,100,40,"END?",-10);
 			usleep(25000);
 			do{
-			help();
+				help();
 			}while(gfx_wait() != 0x01);
 			gfx_clear();
 			goto start;
 		}
 		
-		nav_button(10,530,100,50,"TWIST");
-			if((gfx_xpos() >= 10 && gfx_xpos() <= 110) && (gfx_ypos() >= 530 && gfx_ypos() <= 580)){
-				nav_button_clicked(10,530,100,50,"END?");
+		button(1230,135,100,40,"TWIST", -10);
+			if((gfx_xpos() >= 1230 && gfx_xpos() <= 1330) && (gfx_ypos() >= 135 && gfx_ypos() <= 175)){
+				button_clicked(1230,135,100,40,"TWIST", -10);
 				usleep(25000);
-				
+				strcpy(temp_set,set);
+				if(n == 0){
+					for(k = 0, l = strlen(temp_set)-1; k < strlen(temp_set)-1;k++, l--){
+							set[l] = temp_set[k];
+							
+					}
+					n = 1;
+				}
+				else{
+					for(k = 1, l = strlen(temp_set)-1; k < strlen(temp_set)-1;k++, l--){
+							set[l] = temp_set[k];
+							
+					}
+					n = 0;
+				}
+				printf("n value: %d", n);
+				proceed = 1;
+				j = 0;
+				char guess[10], no_string[10];
 			}
 
-		nav_button(1000,460,100,50,"Enter");
+				
+			
+
+		button(1000,460,100,50,"Enter", 0);
 		if((gfx_xpos() >= 1000 && gfx_xpos() <= 1100) && (gfx_ypos() >= 460 && gfx_ypos() <= 510)){
 			if(guess != " "){ 
 				go = 1;
 			}
 		}
 
-		// nav_button(1000,530,100,50,"Delete");
+		// button(1000,530,100,50,"Delete");
 		// if((gfx_xpos() >= 200 && gfx_xpos() <= 300) && (gfx_ypos() >= 550 && gfx_ypos() <= 600)){
 			
 		// }
@@ -145,7 +154,9 @@ void play_game(){
 		//(xsize-(button.size * strlen + button.gap * strlen-1))/2
 		int x = (1300-((50*strlen(set)+(30 * (strlen(set)-1)))))/2;
 		//Puzzle letter
-		puzzle_letter(x, 500, 1300, set);
+		puzzle_letter(x, 375, set);
+		
+		
 		
 		if(proceed){
 			for(k = 0; k < strlen(set); k++){
@@ -159,7 +170,7 @@ void play_game(){
 
 		
 		k=0;
-		while((gfx_xpos() >= x && gfx_xpos() <= x+((strlen(set)-1)*100)) && (gfx_ypos() >= 500 && gfx_ypos() <= 550)){
+		while((gfx_xpos() >= x && gfx_xpos() <= x+((strlen(set)-1)*100)) && (gfx_ypos() >= 375 && gfx_ypos() <= 425)){
 			
 			if(gfx_xpos() >= x+(k*100) && gfx_xpos() <= x+(k*100)+50){
 				ch = set[k];
@@ -182,7 +193,8 @@ void play_game(){
 					chs[j] = ch;
 					chs[j+1] = '\0';
 					sprintf(chr,"%c", ch);
-					gfx_text(chr, x+(j*100), 520,1);
+					//gfx_text(chr, x+(j*100)+5, 305,1);
+					m++;
 					j++;
 				}
 				
@@ -191,13 +203,16 @@ void play_game(){
 			if(k > strlen(set)) break;
 			
 		}
+		printf("m value: %d",m);
+		
 		proceed = 0;
 		strcpy(guess,chs);
+		
 		printf("guess %s\n", chs);
 		
 
 
-		// nav_button(1000,530,100,50,"Delete");
+		// button(1000,530,100,50,"Delete");
 		// if((gfx_xpos() >= 200 && gfx_xpos() <= 300) && (gfx_ypos() >= 550 && gfx_ypos() <= 600)){
 			
 		// 	}
@@ -225,33 +240,13 @@ void play_game(){
 			char guess[10], no_string[10];
 			proceed = 1;
 			j = 0;
-			strcpy(guess, " ");
-		
-
-		
-
-			// gfx_color(34, 40, 49);
-			// gfx_text("You made the following words so far: ",200,500,2);
-			// printf("counter %d\n", counter);
-			// printf("You made the following words so far: ");
-			// i=0;
-			// while(i < counter){
-			// 	printf("%s ",correct_guess[i]);
-			// 	if(i%10 == 0){
-			// 		y = 525;
-			// 		x += 100;
-					
-			// 	}
-			// 	gfx_text(correct_guess[i],x,y,2);
-			// 	i++;
-			// 	y += 25;
-			// }
-			// printf("\n");	
+			m = 0;
+			
 		}
 		if(counter == end) break;
-		if(counter > 0){
-			guess_board_letter(50, 1300, end, counter, guess_list, correct_guess);
-		}
+	 	guess_board_letter(1300, end, counter, guess_list, correct_guess);
+		// }
+		input_box(x, 300, guess, set, m);
 		gfx_wait();
 		gfx_clear();
 	
