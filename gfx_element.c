@@ -185,7 +185,7 @@ void guess_board_letter(int xsize, int end, int counter, char guess_list[35][10]
         
         for(j = 0; j < end; j++, y += 35){
             if(strcmp(guess_list[j],correct_guess[i]) == 0){
-                printf("test x%d y%d\n", x,y);
+                //printf("test x%d y%d\n", x,y);
                 gfx_color(255,255,255);
                 strcpy(temp,correct_guess[i]);
                 for(k = 0; k < strlen(temp); k++){
@@ -205,3 +205,81 @@ void guess_board_letter(int xsize, int end, int counter, char guess_list[35][10]
         
     }
 }// do separate loops
+
+void repeater(int x, int y){
+	gfx_color(0,0,0);
+	gfx_fillrectangle(x+20,y+68,44,4);
+	gfx_color (0,0,0);
+	gfx_fillrectangle(x+16,y+60,52,8);
+	gfx_color (66, 129,73);
+	gfx_fillrectangle(x+20,y+60,44,8);
+	gfx_color (0,0,0);
+	gfx_fillrectangle(x+20 ,y+56,44,4);
+	gfx_color(0,0,0); 
+	gfx_fillrectangle(x+40, y+60,4,8);
+	
+	gfx_color(0,0,0);
+	gfx_fillrectangle(x+36,y+48,4,8);
+	gfx_color (114,182,92); 
+	gfx_fillrectangle(x+40, y+48,4,8);
+	gfx_color (0,0,0);
+	gfx_fillrectangle(x+44,y+48,4,8);
+}
+
+void repeater_head(int x,int y){
+	//stem
+	gfx_color (0,0,0);
+	gfx_fillrectangle(x+32,y+40,4,8); 
+	gfx_color (114,182,92); 
+	gfx_fillrectangle (x+36,y+40,4,8); 
+	gfx_color (0,0,0);
+	gfx_fillrectangle(x+40,y+40,4,8);
+	
+	//chin
+	gfx_fillrectangle(x+28,y+36,20,4); 
+	
+	//mouth
+	gfx_fillrectangle(x+56 ,y+36,8,4);
+	gfx_fillrectangle(x+48,y+32,8,4);
+	gfx_fillrectangle(x+64,y+12,4,24);
+	gfx_fillrectangle(x+56 ,y+10,8,4);
+	
+	//back_head
+	gfx_fillrectangle(x+20 ,y+32,8,4);
+	gfx_fillrectangle(x+16 ,y+16,4,16);
+	gfx_fillrectangle(x+24,y+10,4,4);
+	gfx_fillrectangle(x+20,y+14,4,4);
+	
+	//top_head
+	gfx_fillrectangle(x+28,y+8,20,4); 
+	gfx_fillrectangle(x+48,y+10,4,4);
+	gfx_fillrectangle(x+52,y+14,4,4);
+	
+	//leaf
+	gfx_fillrectangle(x+20,y+6,4,4);
+	gfx_fillrectangle(x+16,y+2,4,4);
+	gfx_fillrectangle(x+12,y-2,4,4);
+	gfx_fillrectangle(x+8,y-2,4,4);
+	gfx_fillrectangle(x+4,y+2,4,4);
+	gfx_fillrectangle(x,y+6,4,4);
+	gfx_fillrectangle(x,y+10,24,4);
+	gfx_fillrectangle(x+4,y+14,4,4);
+	
+	//color_leaf
+	gfx_color(80,123,95);
+	gfx_fillrectangle(x+8,y+2,8,4);
+	gfx_fillrectangle(x+4,y+6,16,4);
+	
+	//color_body
+	gfx_color(95,203,65);
+	gfx_fillrectangle(x+20,y+18,44,14);
+	gfx_fillrectangle(x+28,y+12,20,24);
+	gfx_fillrectangle(x+24,y+14,28,4);
+	gfx_fillrectangle(x+56,y+14,8,22);
+	
+	//face
+	gfx_color (0,0,0);
+	gfx_fillrectangle(x+42,y+16,4,8);
+	gfx_fillrectangle(x+34,y+16,4,8);
+	gfx_fillrectangle(x+60,y+16,4,18);
+}

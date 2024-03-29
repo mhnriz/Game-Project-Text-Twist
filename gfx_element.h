@@ -14,3 +14,5 @@ void input_box(int x, int y, char guess[10], char set[10],int m);
 void puzzle_letter(int x, int y, char set[10]);
 void guess_board(int y, int xsize, int end, int counter, char guess_list[35][10], char correct_guess[35][10]);
 void guess_board_letter(int xsize, int end, int counter, char guess_list[35][10], char correct_guess[35][10]);
+void repeater(int x, int y);
+void repeater_head(int x,int y);
