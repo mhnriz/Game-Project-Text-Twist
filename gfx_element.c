@@ -206,7 +206,9 @@ void guess_board_letter(int xsize, int end, int counter, char guess_list[35][10]
     }
 }// do separate loops
 
-void repeater(int x, int y){
+//Character sprite
+
+void peashooter(int x, int y){
 	gfx_color(0,0,0);
 	gfx_fillrectangle(x+20,y+68,44,4);
 	gfx_color (0,0,0);
@@ -226,7 +228,7 @@ void repeater(int x, int y){
 	gfx_fillrectangle(x+44,y+48,4,8);
 }
 
-void repeater_head(int x,int y){
+void peashooter_head(int x,int y){
 	//stem
 	gfx_color (0,0,0);
 	gfx_fillrectangle(x+32,y+40,4,8); 
@@ -281,5 +283,152 @@ void repeater_head(int x,int y){
 	gfx_color (0,0,0);
 	gfx_fillrectangle(x+42,y+16,4,8);
 	gfx_fillrectangle(x+34,y+16,4,8);
+	gfx_fillrectangle(x+60,y+16,4,18);
+}
+
+void repeater_head(int x,int y){
+	//stem
+	gfx_color (0,0,0);
+	gfx_fillrectangle(x+32,y+40,4,8); 
+	gfx_color (114,182,92); 
+	gfx_fillrectangle (x+36,y+40,4,8); 
+	gfx_color (0,0,0);
+	gfx_fillrectangle(x+40,y+40,4,8);
+	
+	//chin
+	gfx_fillrectangle(x+28,y+36,20,4); 
+	
+	//mouth
+	gfx_fillrectangle(x+56 ,y+36,8,4);
+	gfx_fillrectangle(x+48,y+32,8,4);
+	gfx_fillrectangle(x+64,y+12,4,24);
+	gfx_fillrectangle(x+56 ,y+10,8,4);
+	
+	//back_head
+	gfx_fillrectangle(x+16,y+32,12,4);
+	gfx_fillrectangle(x+16 ,y+16,4,12);
+	gfx_fillrectangle(x+24,y+10,4,4);
+	gfx_fillrectangle(x+20,y+14,4,4);
+	
+	//top_head
+	gfx_fillrectangle(x+28,y+8,20,4); 
+	gfx_fillrectangle(x+48,y+10,4,4);
+	gfx_fillrectangle(x+52,y+14,4,4);
+	
+	//leaf
+	gfx_fillrectangle(x+28,y+4,4,4); 
+	gfx_fillrectangle(x+20,y,8,4); 
+	gfx_fillrectangle(x+16,y+4,4,4); 
+	gfx_fillrectangle(x+20,y+8,4,8); 
+	
+	gfx_fillrectangle(x+8,y,8,4); 
+	gfx_fillrectangle(x+4,y+4,4,12);
+	gfx_fillrectangle(x+4,y+8,8,4); 
+	gfx_fillrectangle(x+12,y+12,4,4);
+	
+	gfx_fillrectangle(x+8,y+28,8,4);
+	gfx_fillrectangle(x+4,y+20,4,8); 
+	gfx_fillrectangle(x+4,y+24,12,4); 
+	gfx_fillrectangle(x+12,y+20,4,4);
+	
+	
+	//color_leaf
+	gfx_color(80,123,95);
+	gfx_fillrectangle(x+20,y+4,8,4); 
+	gfx_fillrectangle(x+24,y+6,4,4); 
+	
+	
+	gfx_fillrectangle(x+8,y+4,8,4); 
+	gfx_fillrectangle(x+12,y+8,8,4); 
+	gfx_fillrectangle(x+16,y+12,4,4); 
+	
+	//color_body
+	gfx_color(95,203,65);
+	gfx_fillrectangle(x+20,y+18,44,14);
+	gfx_fillrectangle(x+28,y+12,20,24);
+	gfx_fillrectangle(x+24,y+14,28,4);
+	gfx_fillrectangle(x+56,y+14,8,22);
+	gfx_fillrectangle(x+16,y+28,4,4); 
+	
+	//face
+	gfx_color (0,0,0);
+	gfx_fillrectangle(x+20,y+28,4,4); 
+	gfx_fillrectangle(x+42,y+12,4,12);
+	gfx_fillrectangle(x+34,y+12,4,12);
+	gfx_fillrectangle(x+60,y+16,4,18);
+}
+
+void iceshooter(int x,int y){
+	//stem
+	gfx_color (0,0,0);
+	gfx_fillrectangle(x+32,y+40,4,8); 
+	gfx_color (58,123,156); 
+	gfx_fillrectangle (x+36,y+40,4,8); 
+	gfx_color (0,0,0);
+	gfx_fillrectangle(x+40,y+40,4,8);
+	
+	//chin
+	gfx_fillrectangle(x+28,y+36,20,4); 
+	
+	//mouth
+	gfx_fillrectangle(x+56 ,y+36,8,4);
+	gfx_fillrectangle(x+48,y+32,8,4);
+	gfx_fillrectangle(x+64,y+12,4,24);
+	gfx_fillrectangle(x+56 ,y+10,8,4);
+	
+	//back_head
+	gfx_fillrectangle(x+16,y+32,12,4);
+	gfx_fillrectangle(x+16 ,y+16,4,12);
+	gfx_fillrectangle(x+24,y+10,4,4);
+	gfx_fillrectangle(x+20,y+14,4,4);
+	
+	//top_head
+	gfx_fillrectangle(x+28,y+8,20,4); 
+	gfx_fillrectangle(x+48,y+10,4,4);
+	gfx_fillrectangle(x+52,y+14,4,4);
+	
+	//leaf
+	gfx_fillrectangle(x+28,y+4,4,4); 
+	gfx_fillrectangle(x+24,y,4,4); 
+	gfx_fillrectangle(x+20,y+4,4,4); 
+	gfx_fillrectangle(x+20,y+8,4,8); 
+	
+	gfx_fillrectangle(x+12,y,8,4); 
+	gfx_fillrectangle(x+8,y,4,12);
+	gfx_fillrectangle(x+8,y+8,8,4); 
+	gfx_fillrectangle(x+16,y+12,4,4);
+	
+	gfx_fillrectangle(x,y+8,8,4);
+	gfx_fillrectangle(x,y+12,4,4);
+	gfx_fillrectangle(x+4,y+16,12,4);
+	
+	gfx_fillrectangle(x+8,y+20,4,4);
+	gfx_fillrectangle(x+4,y+24,4,8); 
+	gfx_fillrectangle(x+8,y+28,8,4); 
+	
+	
+	//color_leaf
+	gfx_color(81,204,223);
+	gfx_fillrectangle(x+24,y+4,4,6); 
+	gfx_fillrectangle(x+12,y+4,8,4);
+	gfx_fillrectangle(x+16,y+4,4,8);
+	gfx_fillrectangle(x+8,y+24,8,4); 
+	gfx_fillrectangle(x+12,y+20,4,4); 
+	gfx_color(70,141,190);
+	gfx_fillrectangle(x+4,y+12,12,4);
+	
+	//color_body
+	gfx_color(42,233,241);
+	gfx_fillrectangle(x+20,y+18,44,14);
+	gfx_fillrectangle(x+28,y+12,20,24);
+	gfx_fillrectangle(x+24,y+14,28,4);
+	gfx_fillrectangle(x+56,y+14,8,22);
+	gfx_fillrectangle(x+16,y+28,4,4); 
+	
+	//face
+	gfx_color (0,0,0);
+	gfx_fillrectangle(x+20,y+28,4,4); 
+	gfx_fillrectangle(x+42,y+12,4,12);
+	gfx_fillrectangle(x+34,y+12,4,12);
 	gfx_fillrectangle(x+60,y+16,4,18);
 }
