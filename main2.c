@@ -254,6 +254,19 @@ void play_game(){
 			//gfx_color(238,0,0);
 			gfx_fillrectangle(0,470, 1300,180);
 			
+			printf("shoot %d\n", shoot);
+			if(shoot == 1) {
+				shoot_mov = 1;
+				shoot = 0;
+			}
+			if(shoot_mov == 1){
+				gfx_color(230,0,0);
+				gfx_fillcircle(bullet_mov,575,20);
+				bullet_mov += 100;
+				if(bullet_mov >= 1280) shoot_mov = 0;
+			}
+			
+			//peashooter animation
 			if(head_mov){
 				head = 108;
 				head_mov = 0;
@@ -263,21 +276,9 @@ void play_game(){
 				head_mov = 1;
 			}
 			
-			
-			printf("shoot %d\n", shoot);
-			if(shoot == 1) {
-				shoot_mov = 1;
-				shoot = 0;
-			}
-			if(shoot_mov == 1){
-				gfx_color(230,0,0);
-				gfx_fillcircle(bullet_mov,575,20);
-				bullet_mov += 60;
-			}
-			
-			repeater_head(head,550);
-			repeater(100,550);
-			
+			peashooter_head(head,550);
+			peashooter(100,550);
+			gfx_fillrectangle(1280,525,75,50);
 			int x_center = (1300-((50*strlen(set)+(30 * (strlen(set)-1)))))/2;
 			//Guess board
 			guess_board(-20, 1300, max_guess, counter, guess_list, correct_guess);
