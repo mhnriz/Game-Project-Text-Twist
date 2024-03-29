@@ -291,7 +291,7 @@ void play_game(){
 			button(1000,300,100,50,"Enter", 0);
 			button(1000,370,100,50,"Delete", 0);
 			gfx_flush();
-			usleep(250000);	
+			usleep(500000);	
 			//gfx_clear();
 			
 		}
