@@ -12,4 +12,4 @@ void guess_board_letter(int xsize, int end, int counter, char guess_list[35][10]
 void peashooter(int x, int y);
 void peashooter_head(int x,int y);
 void repeater_head(int x,int y);
-void iceshooter(int x,int y);
+void iceshooter_head(int x,int y);

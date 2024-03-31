@@ -358,7 +358,7 @@ void repeater_head(int x,int y){
 	gfx_fillrectangle(x+60,y+16,4,18);
 }
 
-void iceshooter(int x,int y){
+void iceshooter_head(int x,int y){
 	//stem
 	gfx_color (0,0,0);
 	gfx_fillrectangle(x+32,y+40,4,8); 
