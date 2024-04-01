@@ -13,3 +13,5 @@ void peashooter(int x, int y);
 void peashooter_head(int x,int y);
 void repeater_head(int x,int y);
 void iceshooter_head(int x,int y);
+void grass(int x, int y);
+void house(int x,int y);

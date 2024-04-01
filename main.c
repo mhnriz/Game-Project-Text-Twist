@@ -14,6 +14,8 @@
 #include <ctype.h>
 #include <unistd.h>
 #include <time.h>
+#include <pulse/simple.h>
+#include <pthread.h>
 #include "gfx.h"
 #include "gfx_element.h"
 
@@ -26,12 +28,18 @@ void help();
 void flush();
 void ended(int points);
 char gfx_getKey();
+void *bgm();
 
 //MAIN
 int main(){
 	gfx_open(1300,650,"Text Twist by C.Code");
 	gfx_flush();
+
+	pthread_t audio_thread;
+	pthread_create(&audio_thread, NULL, bgm, NULL);
+	
 	menu();
+	
 
 	return 0;
 }
@@ -63,7 +71,9 @@ void menu(){
 			nav_button(550,390,200, 50,"HELP");
 			usleep(25000); 
 			printf("testing");
-			help();
+			do{
+				help();
+			}while(gfx_wait() != 0x01);
 		}
 		else if((gfx_xpos() >= 545 && gfx_xpos() <= 755) && (gfx_ypos() >= 490 && gfx_ypos() <= 540)){
 			nav_button(550,490, 200, 50, "EXIT");
@@ -85,7 +95,8 @@ void play_game(){
 	//animation / graphics variable
 	int pea_head_mov = 0, pea_head, re_head_mov = 0, re_head, ice_head_mov = 0, ice_head;
 	int bullet_mov=160, shoot = 0, shoot_mov = 0;
-	
+	int x_grass;
+
 	game_set(set,&set_no);
 	wordlist(set, set_no, &max_guess,guess_list);
 
@@ -172,8 +183,12 @@ void play_game(){
 					}
 				}
 			
-				if(guessed == 0) check_guess(&check, guess, &counter,max_guess, guess_list);
-			
+				if(guessed == 0){
+					gfx_color(238,238,238);
+					gfx_fillrectangle(200,310, 150,50);
+					check_guess(&check, guess, &counter,max_guess, guess_list);
+				}
+
 				if(check == 1 && guessed == 0){
 					strcpy(correct_guess[counter-1],guess);
 					points += 2*strlen(guess);
@@ -186,6 +201,7 @@ void play_game(){
 				guess_count = 0;
 				guess_index = 0;
 				if(counter == max_guess) break;
+				//gfx_clear();
 			}
 
 			x = gfx_xpos();
@@ -294,11 +310,14 @@ void play_game(){
 				ice_head = 180;
 				ice_head_mov = 1;
 			}
-			iceshooter_head(ice_head,550);
-			peashooter(180,550);
+			iceshooter_head(ice_head,536);
+			peashooter(180,536);
 			
 			
 			gfx_fillrectangle(1280,525,75,50);
+			for (x_grass=0;x_grass<1300;x_grass+=48){
+				grass(x_grass,608);
+			}
 
 			int x_center = (1300-((50*strlen(set)+(30 * (strlen(set)-1)))))/2;
 			//Guess board
@@ -409,7 +428,7 @@ int check_guess(int *check, char guess[10], int *counter,int end, char string_li
 	}
 	gfx_color(34, 40, 49);
 	if(*check){
-		gfx_text("VALID WORD!",600,510,2);
+		gfx_text("VALID WORD!",200,310,2);
 		printf("%s: VALID WORD\n", guess);	
 		printf("-----------------------------------------------\n");
 		*counter = *counter + 1;
@@ -422,20 +441,20 @@ int check_guess(int *check, char guess[10], int *counter,int end, char string_li
 		
 		do{
 			if(strlen(guess)<3){
-				gfx_text("TOO SHORT!",600,510,2);
+				gfx_text("TOO SHORT!",200,310,2);
 				printf("TOO SHORT\n");
 				printf("-----------------------------------------------\n");
 				return 0;
 			}
 			else if(isdigit(guess[i]) || !isalnum(guess[i])){
-				gfx_text("INVALID SYMBOL/NUMBER",600,510,2);
+				gfx_text("INVALID SYMBOL/NUMBER",200,310,2);
 				printf("INVALID SYMBOL/NUMBER %c\n",guess[i]);
 				printf("-----------------------------------------------\n");
 				return 0;
 			}
 			i++;
 		}while(i < strlen(guess));
-		gfx_text("INVALID WORD!",600,510,2);
+		gfx_text("INVALID WORD!",200,310,2);
 		printf("INVALID WORD\n");
 		printf("-----------------------------------------------\n");
 		
@@ -504,4 +523,31 @@ char gfx_getKey(){
 		while(gfx_event_waiting()) {gfx_wait();}
 		return key;
 	}
+}
+
+void *bgm(){
+
+    FILE *fp = fopen("bgm.wav", "rb");
+
+    pa_simple *pa_handle;
+    pa_sample_spec pa_spec;
+    pa_spec.format = PA_SAMPLE_S16LE;
+    pa_spec.channels = 2;
+    pa_spec.rate = 44100;
+
+    pa_handle = pa_simple_new(NULL, "play_audio", PA_STREAM_PLAYBACK, NULL, "playback", &pa_spec, NULL, NULL, NULL);
+    
+    char buffer[4096];
+    size_t read_count;
+	while(1){
+		while((read_count = fread(buffer, sizeof(char), 4096, fp)) > 0){
+			pa_simple_write(pa_handle, buffer, read_count, NULL);
+		}
+	}
+    pa_simple_drain(pa_handle, NULL);
+    pa_simple_free(pa_handle);
+
+    fclose(fp);
+	pthread_exit(NULL);
+    
 }

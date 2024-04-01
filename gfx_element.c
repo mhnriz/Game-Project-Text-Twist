@@ -432,3 +432,226 @@ void iceshooter_head(int x,int y){
 	gfx_fillrectangle(x+34,y+12,4,12);
 	gfx_fillrectangle(x+60,y+16,4,18);
 }
+
+void grass(int x, int y){
+	
+	//lightbrown
+	gfx_color(136,69,0);	
+	gfx_fillrectangle(x,y+36,48,8);
+	//darkbrown
+	gfx_color(113,55,0);
+	gfx_fillrectangle(x,y+40,48,4);
+	
+	
+	//brown 
+	gfx_color(199,121,3);
+	gfx_fillrectangle(x,y+16,48,8);
+	gfx_fillrectangle(x+8,y+16,4,4);
+	
+	//yellow
+	gfx_color(238,181,55);
+	gfx_fillrectangle(x,y+20,48,12);
+	gfx_fillrectangle(x+8,y+20,4,12);
+	//darkbrown
+	gfx_color(113,55,0);	
+	gfx_fillrectangle(x,y+28,48,8);
+	//morebrown
+	gfx_color(199,121,3);
+	gfx_fillrectangle(x+8,y+20,4,4);
+	gfx_fillrectangle(x+20,y+20,12,4);
+	
+	//darkgreen
+	gfx_color(3,136,0);
+	gfx_fillrectangle(x,y+8,48,8);
+	gfx_fillrectangle(x+8,y+16,4,4);
+	gfx_fillrectangle(x+20,y+16,8,4);
+	
+	//lightgreen
+	gfx_color(102,200,66);
+	gfx_fillrectangle(x,y,48,8);
+	gfx_fillrectangle(x+8,y+8,4,4);
+	gfx_fillrectangle(x+20,y+8,8,4);
+	
+}
+
+void house(int x,int y){
+	//roofoutline
+	gfx_color (0,0,0);
+	//higest
+	gfx_fillrectangle(x+40,y+20,116,8);
+	
+	//left 
+	gfx_fillrectangle(x+32,y+28,8,8);
+	gfx_fillrectangle(x+24,y+36,8,8);
+	gfx_fillrectangle(x+16,y+44,8,8);
+	gfx_fillrectangle(x+8,y+52,8,8);
+	gfx_fillrectangle(x,y+60,8,8);
+	gfx_fillrectangle(x-8,y+68,8,8);
+	gfx_fillrectangle(x-16,y+76,8,8);
+	gfx_fillrectangle(x-24,y+84,8,24);
+	gfx_fillrectangle(x-16,y+108,8,8);
+	gfx_fillrectangle(x-8,y+116,8,88);
+	
+	//bottom
+	gfx_fillrectangle(x,y+204,196,8);
+	//right
+	gfx_fillrectangle(x+156,y+28,8,8);
+	gfx_fillrectangle(x+164,y+36,8,8);
+	gfx_fillrectangle(x+172,y+44,8,8);
+	gfx_fillrectangle(x+180,y+52,8,8);
+	gfx_fillrectangle(x+188,y+60,8,8);
+	gfx_fillrectangle(x+196,y+68,8,8);
+	gfx_fillrectangle(x+204,y+76,8,8);
+	gfx_fillrectangle(x+212,y+84,8,8);
+	gfx_fillrectangle(x+220,y+92,8,8);
+	gfx_fillrectangle(x+212,y+100,8,8);
+	gfx_fillrectangle(x+204,y+108,8,8);
+	gfx_fillrectangle(x+196,y+116,8,88);
+	
+	//roof 
+	gfx_color (129,26,24);
+	gfx_fillrectangle(x+40,y+28,116,8);
+	gfx_color(176,37,40);
+	gfx_fillrectangle(x+32,y+36,80,8);
+	gfx_color (129,26,24);
+	gfx_fillrectangle(x+24,y+44,80,8);
+	gfx_color(176,37,40);
+	gfx_fillrectangle(x+16,y+52,80,8);
+	gfx_color (129,26,24);
+	gfx_fillrectangle(x+8,y+60,80,8);
+	gfx_color(176,37,40);
+	gfx_fillrectangle(x,y+68,80,8);
+	gfx_color (129,26,24);
+	gfx_fillrectangle(x-8,y+76,80,8);
+	gfx_color(176,37,40);
+	gfx_fillrectangle(x-16,y+84,80,8);
+	
+	gfx_color(108,16,17);
+	gfx_fillrectangle(x+120,y+28,36,8);
+	gfx_fillrectangle(x+112,y+36,8,8);
+	gfx_fillrectangle(x+104,y+44,8,8);
+	gfx_fillrectangle(x+96,y+52,8,8);
+	gfx_fillrectangle(x+88,y+60,8,8);
+	gfx_fillrectangle(x+80,y+68,8,8);
+	gfx_fillrectangle(x+72,y+76,8,8);
+	gfx_fillrectangle(x+64,y+84,8,8);
+	gfx_fillrectangle(x-16,y+92,88,8);
+	
+	gfx_color(139,24,27);
+	gfx_fillrectangle(x-16,y+100,88,8);
+	
+	gfx_color(108,16,17);
+	gfx_fillrectangle(x-8,y+108,88,8);
+	gfx_fillrectangle(x+72,y+100,8,8);
+	gfx_fillrectangle(x+128,y+52,28,8);
+	gfx_fillrectangle(x+120,y+60,8,8);
+	gfx_fillrectangle(x+112,y+68,8,8);
+	gfx_fillrectangle(x+104,y+76,8,8);
+	gfx_fillrectangle(x+96,y+84,8,8);
+	gfx_fillrectangle(x+88,y+92,8,8);
+	gfx_fillrectangle(x+80,y+100,8,8);
+	
+	gfx_fillrectangle(x+156,y+60,8,8);
+	gfx_fillrectangle(x+164,y+68,8,8);
+	gfx_fillrectangle(x+172,y+76,8,8);
+	gfx_fillrectangle(x+180,y+84,8,8);
+	gfx_fillrectangle(x+188,y+92,8,8);
+	gfx_fillrectangle(x+196,y+100,8,8);
+	
+	gfx_color(174,38,42);
+	gfx_fillrectangle(x+72,y+84,16,16);
+	gfx_fillrectangle(x+80,y+76,16,16);
+	gfx_fillrectangle(x+88,y+68,16,16);
+	gfx_fillrectangle(x+96,y+60,16,16);
+	gfx_fillrectangle(x+104,y+52,16,16);
+	gfx_fillrectangle(x+112,y+44,16,16);
+	gfx_fillrectangle(x+120,y+36,44,16);
+	gfx_fillrectangle(x+156,y+44,16,16);
+	gfx_fillrectangle(x+164,y+52,16,16);
+	gfx_fillrectangle(x+172,y+60,16,16);
+	gfx_fillrectangle(x+180,y+68,16,16);
+	gfx_fillrectangle(x+188,y+76,16,16);
+	gfx_fillrectangle(x+196,y+84,16,16);
+	gfx_fillrectangle(x+212,y+92,8,8);
+	gfx_fillrectangle(x+204,y+100,8,8);
+	
+	gfx_color(135,23,20);
+	gfx_fillrectangle(x+148,y+60,8,8);
+	gfx_fillrectangle(x+156,y+68,8,8);
+	gfx_fillrectangle(x+164,y+76,8,8);
+	gfx_fillrectangle(x+172,y+84,8,8);
+	gfx_fillrectangle(x+180,y+92,8,8);
+	gfx_fillrectangle(x+188,y+100,8,8);
+	gfx_fillrectangle(x+196,y+108,8,8);
+	
+	gfx_color(187,128,50);
+	gfx_fillrectangle(x+128,y+60,20,8);
+	gfx_fillrectangle(x+140,y+68,16,8);
+	gfx_fillrectangle(x+148,y+76,16,8);
+	gfx_fillrectangle(x+156,y+84,16,8);
+	gfx_fillrectangle(x+164,y+92,16,8);
+	gfx_fillrectangle(x+172,y+100,16,8);
+	gfx_fillrectangle(x+180,y+108,16,8);
+	
+	gfx_fillrectangle(x,y+116,80, 8);
+	
+	gfx_color(236,177,77);
+	gfx_fillrectangle(x+120,y+68,8,136);
+	gfx_fillrectangle(x+112,y+76,8,128);
+	gfx_fillrectangle(x+104,y+84,8,120);
+	gfx_fillrectangle(x+96,y+92,8,112);
+	gfx_fillrectangle(x+88,y+100,8,104);
+	
+	gfx_fillrectangle(x+128,y+68,12,8);
+	gfx_fillrectangle(x+128,y+76,20,128);
+	gfx_fillrectangle(x+140,y+84,16,112);
+	gfx_fillrectangle(x+148,y+92,16,112);
+	gfx_fillrectangle(x+156,y+100,16,104);
+	gfx_fillrectangle(x+164,y+108,16,96);
+	gfx_fillrectangle(x+172,y+116,16,88);
+	gfx_fillrectangle(x+180,y+116,16,88);
+
+	gfx_fillrectangle(x,y+124,80, 80);
+
+	gfx_fillrectangle(x+80,y+108,8,96);
+	
+	gfx_color(188,130,46);
+	gfx_fillrectangle(x,y+172,8,32);
+	gfx_fillrectangle(x+8,y+180,8,24);
+	gfx_fillrectangle(x+16,y+188,56,16);
+	gfx_fillrectangle(x+72,y+180,8,24);
+	gfx_fillrectangle(x+80,y+172,8,32);
+	
+	gfx_fillrectangle(x+96,y+172,8,32);
+	gfx_fillrectangle(x+104,y+180,8,24);
+	gfx_fillrectangle(x+104,y+188,76,16);
+	gfx_fillrectangle(x+180,y+172,8,32);
+	gfx_fillrectangle(x+188,y+164,8,40);
+
+	gfx_color(133,92,35);
+	gfx_fillrectangle(x+88,y+100,8,104);
+
+	gfx_color(141,130,131);
+	gfx_fillrectangle(x+16,y+140,54,32);
+	gfx_fillrectangle(x+24,y+132,38,48);
+	gfx_color(255,255,255);
+	gfx_fillrectangle(x+24,y+140,38,32);
+	gfx_color(120,149,221);
+	gfx_fillrectangle(x+32,y+148,22,16);
+
+	gfx_color(141,130,131);
+	gfx_fillrectangle(x+136,y+116,18,8);
+	gfx_fillrectangle(x+128,y+124,34,8);
+	gfx_fillrectangle(x+120,y+132,52,8);
+	gfx_fillrectangle(x+112,y+140,68,64);
+
+	gfx_color(255,255,255);
+	gfx_fillrectangle(x+136,y+124,18,8);
+	gfx_fillrectangle(x+128,y+132,36,8);
+	gfx_fillrectangle(x+120,y+140,52,64);
+
+	gfx_color(0,0,0);
+	gfx_fillrectangle(x+136,y+132,18,8);
+	gfx_fillrectangle(x+128,y+140,34,64);
+
+}
