@@ -107,33 +107,6 @@ void input_box(int x, int y, char guess[10], char set[10], int m){
         gfx_text(chr,xpos+19,y+17,2);
     }
     
-    // while(1){
-    //     c = gfx_wait(); 
-    //     if(c == 0x20){
-    //         strcpy(input,text);
-    //         input[strlen(input)]='\0';
-    //         printf("%s\n", input);
-    //         *redo = 0;
-    //         break;
-    //     }
-    //     else if(c == 0x08){
-    //         *redo = 1;
-    //         break;
-    //     }
-    //     else if(c == 0x01){
-    //         *redo = 1;
-    //         break;
-    //     }
-    //     else if(isgraph((char)c)){
-    //         if(i <=10) text[i]=toupper((char)c);
-    //         printf("%s\n", text);
-    //         gfx_color(34, 40, 49);
-    //         //gfx_rectangle(x,y,100,50);
-    //         gfx_text(text,x+15,y+10,2);
-    //         i++;
-    //     }
-
-    // }
 }
 
 void puzzle_letter(int x, int y, char set[10]){
@@ -174,6 +147,7 @@ void guess_board(int y, int xsize, int end, int counter, char guess_list[35][10]
     }
 
 }
+
 void guess_board_letter(int xsize, int end, int counter, char guess_list[35][10], char correct_guess[35][10]){
     int i, j, k, l, x, y;
     float round = end/7;
@@ -185,8 +159,7 @@ void guess_board_letter(int xsize, int end, int counter, char guess_list[35][10]
         
         for(j = 0; j < end; j++, y += 35){
             if(strcmp(guess_list[j],correct_guess[i]) == 0){
-                //printf("test x%d y%d\n", x,y);
-                gfx_color(255,255,255);
+                 gfx_color(255,255,255);
                 strcpy(temp,correct_guess[i]);
                 for(k = 0; k < strlen(temp); k++){
                     chs[0] = temp[k];
@@ -493,7 +466,7 @@ void house(int x,int y){
 	gfx_fillrectangle(x-8,y+116,8,88);
 	
 	//bottom
-	gfx_fillrectangle(x,y+204,196,8);
+	//gfx_fillrectangle(x,y+204,196,8);
 	//right
 	gfx_fillrectangle(x+156,y+28,8,8);
 	gfx_fillrectangle(x+164,y+36,8,8);
@@ -654,4 +627,143 @@ void house(int x,int y){
 	gfx_fillrectangle(x+136,y+132,18,8);
 	gfx_fillrectangle(x+128,y+140,34,64);
 
+}
+
+void zombie(int x, int y){
+    gfx_color(55,82,41);
+    //head
+    gfx_fillrectangle(x,y,16,20);
+    gfx_color(35,50,27);
+    gfx_fillrectangle(x+16,y,8,16);
+    gfx_fillrectangle(x+16,y+16,4,4);
+    //eyes
+    gfx_color(196,177,52);
+    gfx_fillrectangle(x,y+8,4,4);
+    gfx_fillrectangle(x+12,y+8,4,4);
+    //mouth
+    gfx_color(118,31,20);
+    gfx_fillrectangle(x+4,y+16,8,4);
+    //cloth
+    gfx_color(61,38,20);
+    gfx_fillrectangle(x+20,y+16,8,28);
+    gfx_fillrectangle(x+4,y+20,16,8);
+    gfx_fillrectangle(x,y+24,20,8);
+    gfx_fillrectangle(x-4,y+28,28,8);
+    gfx_fillrectangle(x+4,y+36,24,12);
+    gfx_fillrectangle(x+4,y+48,8,8);
+    gfx_fillrectangle(x+20,y+48,8,8);
+
+    //ligament
+    gfx_color(55,82,41);
+    gfx_fillrectangle(x-8,y+32,4,8);
+    gfx_fillrectangle(x+8,y+32,4,8);
+    //stomach
+    gfx_fillrectangle(x+4,y+36,16,4);
+    //leg
+    gfx_fillrectangle(x+4,y+56,4,16);
+    gfx_fillrectangle(x+24,y+56,4,16);
+    //cloth2
+    gfx_color(84,57,32);
+    gfx_fillrectangle(x+16,y+20,4,4);
+    gfx_fillrectangle(x+4,y+24,12,4);
+    gfx_fillrectangle(x-8,y+26,8,8);
+    gfx_fillrectangle(x+4,y+26,8,4);
+    gfx_fillrectangle(x+4,y+30,4,8);
+    gfx_fillrectangle(x+16,y+30,4,4);
+    gfx_fillrectangle(x+12,y+34,8,4);
+    gfx_fillrectangle(x+4,y+42,4,12);
+    gfx_fillrectangle(x+16,y+42,4,12);
+}
+
+void zombie2(int x,int y){
+    gfx_color(55,82,41);
+    //head
+    gfx_fillrectangle(x,y,16,20);
+    gfx_color(35,50,27);
+    gfx_fillrectangle(x+16,y,8,16);
+    gfx_fillrectangle(x+16,y+16,4,4);
+    //eyes
+    gfx_color(196,177,52);
+    gfx_fillrectangle(x,y+8,4,4);
+    gfx_fillrectangle(x+12,y+8,4,4);
+    //mouth
+    gfx_color(118,31,20);
+    gfx_fillrectangle(x+4,y+16,8,4);
+    //cloth
+    gfx_color(61,38,20);
+    gfx_fillrectangle(x+20,y+16,8,28);
+    gfx_fillrectangle(x+4,y+20,16,8);
+    gfx_fillrectangle(x,y+24,20,8);
+    gfx_fillrectangle(x-4,y+28,28,8);
+    gfx_fillrectangle(x+4,y+36,24,12);
+    gfx_fillrectangle(x+4,y+48,8,8);
+    gfx_fillrectangle(x+20,y+48,8,8);
+
+    //ligament
+    gfx_color(55,82,41);
+    gfx_fillrectangle(x-8,y+32,4,8);
+    gfx_fillrectangle(x+8,y+32,4,8);
+    //stomach
+    gfx_fillrectangle(x+4,y+36,16,4);
+    //leftleg
+     gfx_fillrectangle(x+4,y+56,4,4);
+     gfx_fillrectangle(x+4,y+60,4,4);
+     gfx_fillrectangle(x+8,y+64,4,4);
+     gfx_fillrectangle(x+8,y+68,4,4);
+     gfx_fillrectangle(x+8,y+72,4,1);
+    //rightleg
+    gfx_fillrectangle(x+24,y+56,4,4);
+    gfx_fillrectangle(x+24,y+60,4,4);
+    gfx_fillrectangle(x+20,y+64,4,4);
+    gfx_fillrectangle(x+20,y+68,4,4);
+    gfx_fillrectangle(x+20,y+72,4,1);
+    //cloth2
+    gfx_color(84,57,32);
+    gfx_fillrectangle(x+16,y+20,4,4);
+    gfx_fillrectangle(x+4,y+24,12,4);
+    gfx_fillrectangle(x-8,y+26,8,8);
+    gfx_fillrectangle(x+4,y+26,8,4);
+    gfx_fillrectangle(x+4,y+30,4,8);
+    gfx_fillrectangle(x+16,y+30,4,4);
+    gfx_fillrectangle(x+12,y+34,8,4);
+    gfx_fillrectangle(x+4,y+42,4,12);
+    gfx_fillrectangle(x+16,y+42,4,12);
+
+}
+
+void cloud(int x, int y){
+    gfx_color(255,255,255);
+    gfx_fillrectangle(x+64,y,16,4);
+    gfx_fillrectangle(x+48,y+4,48,4);
+    gfx_fillrectangle(x+40,y+8,64,4);
+    gfx_fillrectangle(x+36,y+12,72,4);
+    gfx_fillrectangle(x+32,y+12,80,4);
+    gfx_fillrectangle(x+28,y+16,88,8);
+    gfx_fillrectangle(x+24,y+20,120,4);
+    gfx_fillrectangle(x+24,y+24,124,4);
+    gfx_fillrectangle(x+20,y+28,132,4);
+    gfx_fillrectangle(x+20,y+32,136,8);
+    gfx_fillrectangle(x+16,y+32,144,12);
+    gfx_fillrectangle(x+12,y+42,156,8);
+    gfx_fillrectangle(x+20,y+46,144,8);
+    gfx_fillrectangle(x+28,y+50,100,8);
+    gfx_fillrectangle(x+34,y+58,76,4);
+    gfx_fillrectangle(x+50,y+60,34,4);
+    gfx_fillrectangle(x+64,y+64,24,4);
+
+    
+}
+
+void baby_cloud(int x, int y){
+    gfx_color(255,255,255);
+    gfx_fillrectangle(x+44,y+84,12,4);
+    gfx_fillrectangle(x+12,y+88,24,4);
+    gfx_fillrectangle(x+40,y+88,24,4);
+    gfx_fillrectangle(x+8,y+92,60,4);
+    gfx_fillrectangle(x+8,y+96,64,4);
+    gfx_fillrectangle(x+8,y+100,68,4);
+    gfx_fillrectangle(x+24,y+104,44,4);
+    gfx_fillrectangle(x+32,y+104,36,4);
+    gfx_fillrectangle(x+44,y+104,24,4);
+    gfx_fillrectangle(x+72,y+92,8,8);
 }

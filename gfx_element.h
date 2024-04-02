@@ -15,3 +15,8 @@ void repeater_head(int x,int y);
 void iceshooter_head(int x,int y);
 void grass(int x, int y);
 void house(int x,int y);
+void zombie(int x, int y);
+void zombie2(int x, int y);
+void cloud(int x, int y);
+void baby_cloud(int x, int y);
+

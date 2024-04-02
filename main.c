@@ -5,7 +5,9 @@
 	2nd  Member Name	:       Muhammad Hariz Naim bin Muhammad Jamali 
 	2nd Matric  Number  :       22008354 
 	Semester            :       Jan 2024 
-	Compiling command	:		gcc main.c gfx_element.c gfx.c -o main.o -lX11 -lm
+
+	Compiling command:	
+gcc main.c gfx_element.c gfx.c -o main.o -lX11 -lm -lpulse-simple -lpulse -pthread
 *********************************************************************/
 
 #include <stdio.h>
@@ -29,6 +31,7 @@ void flush();
 void ended(int points);
 char gfx_getKey();
 void *bgm();
+void *tap();
 
 //MAIN
 int main(){
@@ -63,13 +66,13 @@ void menu(){
 		
 		if((gfx_xpos() >= 545 && gfx_xpos() <= 755) && (gfx_ypos() >= 290 && gfx_ypos() <= 340)){
 			nav_button(550,290, 200, 50,"PLAY");
-			usleep(25000); // 1s = 1*10^6
+			tap();
 			play_game();
 
 		}
         else if((gfx_xpos() >= 545 && gfx_xpos() <= 755) && (gfx_ypos() >= 390 && gfx_ypos() <= 440)){
 			nav_button(550,390,200, 50,"HELP");
-			usleep(25000); 
+			tap();
 			printf("testing");
 			do{
 				help();
@@ -77,7 +80,7 @@ void menu(){
 		}
 		else if((gfx_xpos() >= 545 && gfx_xpos() <= 755) && (gfx_ypos() >= 490 && gfx_ypos() <= 540)){
 			nav_button(550,490, 200, 50, "EXIT");
-			usleep(25000);
+			tap();
 			exit(0);
 		}
 		else
@@ -166,6 +169,7 @@ void play_game(){
 
 			if((gfx_xpos() >= 1000 && gfx_xpos() <= 1100) && (gfx_ypos() >= 300 && gfx_ypos() <= 350)){
 				button_clicked(1000,300,100,50,"Enter", 0);
+				tap();
 				go = 1;
 			}
 
@@ -210,13 +214,13 @@ void play_game(){
 			//buttons
 			if((gfx_xpos() >= 1230 && gfx_xpos() <= 1330) && (gfx_ypos() >= 15 && gfx_ypos() <= 55)){
 				button_clicked(1230,15,100,40,"END?", -20);
-				usleep(25000);
+				tap();
 				goto end;
 			}
 
 			if((gfx_xpos() >= 1230 && gfx_xpos() <= 1330) && (gfx_ypos() >= 75 && gfx_ypos() <= 115)){
 				button_clicked(1230,75,100,40,"HELP",-20);
-				usleep(25000);
+				tap();
 				do{
 					help();
 				}while(gfx_wait() != 0x01);
@@ -225,7 +229,7 @@ void play_game(){
 
 			if((gfx_xpos() >= 1230 && gfx_xpos() <= 1330) && (gfx_ypos() >= 135 && gfx_ypos() <= 175)){
 			button_clicked(1230,135,100,40,"TWIST", -20);
-			usleep(25000);
+			tap();
 			strcpy(temp_set,set);
 			if(twist == 0){
 				for(k = 0, l = strlen(temp_set)-1; k < strlen(temp_set)-1;k++, l--){
@@ -249,7 +253,7 @@ void play_game(){
 			
 			if((gfx_xpos() >= 1000 && gfx_xpos() <= 1100) && (gfx_ypos() >= 370 && gfx_ypos() <= 420)){
 				button_clicked(1000,370,100,50,"Delete", 0);
-				usleep(25000);
+				tap();
 				strcpy(guess,"er");
 				proceed = 1;
 				guess_index = 0;
@@ -549,5 +553,29 @@ void *bgm(){
 
     fclose(fp);
 	pthread_exit(NULL);
+    
+}
+
+void *tap(){
+
+    FILE *fp = fopen("tap.wav", "rb");
+
+    pa_simple *pa_handle;
+    pa_sample_spec pa_spec;
+    pa_spec.format = PA_SAMPLE_S16LE;
+    pa_spec.channels = 2;
+    pa_spec.rate = 44100;
+
+    pa_handle = pa_simple_new(NULL, "play_audio", PA_STREAM_PLAYBACK, NULL, "playback", &pa_spec, NULL, NULL, NULL);
+    
+    char buffer[4096];
+    size_t read_count;
+	while((read_count = fread(buffer, sizeof(char), 4096, fp)) > 0){
+		pa_simple_write(pa_handle, buffer, read_count, NULL);
+	}
+    pa_simple_drain(pa_handle, NULL);
+    pa_simple_free(pa_handle);
+
+    fclose(fp);
     
 }

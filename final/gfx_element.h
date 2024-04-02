@@ -1,0 +1,22 @@
+void nav_button(int x, int y, int width, int height, char text[]);
+void nav_button_clicked(int x, int y, int width, int height, char text[]);
+void button(int x, int y, int width, int height, char text[], int x_offset);
+void button_clicked(int x, int y, int width, int height, char text[], int x_offset);
+int word_button(int x, int y, int width, int height);
+int word_button_clicked(int x, int y, int width, int height);
+void display_text(int x, int y, char input[10]);
+void input_box(int x, int y, char guess[10], char set[10],int m);
+void puzzle_letter(int x, int y, char set[10]);
+void guess_board(int y, int xsize, int end, int counter, char guess_list[35][10], char correct_guess[35][10]);
+void guess_board_letter(int xsize, int end, int counter, char guess_list[35][10], char correct_guess[35][10]);
+void peashooter(int x, int y);
+void peashooter_head(int x,int y);
+void repeater_head(int x,int y);
+void iceshooter_head(int x,int y);
+void grass(int x, int y);
+void house(int x,int y);
+void zombie(int x, int y);
+void zombie2(int x, int y);
+void cloud(int x, int y);
+void baby_cloud(int x, int y);
+
