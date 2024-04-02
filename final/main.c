@@ -32,7 +32,7 @@ void wordlist(char set[10], int y, int *max_guess, char string_list[35][10], int
 int check_guess(int *check, char guess[10], int *counter, int max_guess, char string_list[35][10], int longest);
 void help();
 void flush();
-void ended(int points);
+void ended(int points, char string_list[35][10], int max_guess);
 char gfx_getKey();
 void *bgm();
 void tap();
@@ -273,7 +273,10 @@ void play_game(){
 				proceed = 1;
 				guess_index = 0;
 				strcpy(guess," ");
-				printf("twist value: %d\n", twist);\
+				char guess[10];
+				guess_index = 0;
+				guess_count = 0;
+				printf("twist value: %d\n", twist);
 				
 
 			}
@@ -309,7 +312,7 @@ void play_game(){
 	}
 	end:
 	pthread_cancel(animation_thread);
-	ended(points);
+	ended(points, guess_list, max_guess);
 }	
 
 //Setting game by its gameset pulled from file
@@ -480,7 +483,7 @@ void flush(){
 }
 
 //End screen
-void ended(int points){
+void ended(int points, char string_list[35][10], int max_guess){
 	char string[10];
 	do{
 		int x = 200, y = 250, i = 0, c;
@@ -493,23 +496,32 @@ void ended(int points){
 		sprintf(score,"%d",points);
 		gfx_text(score, 730,150,2);
 		gfx_text("Here's a list of all the words that could be found", 200,200,2);
-		//use gfx_line (); printf("----------------------------------------------------\n");
 		
-		FILE *fp;
-		fp = fopen("wordlist_Game1.txt", "r");
-		while(fgets(string,10,fp) !=NULL){
-			string[strcspn(string, "\n")] = '\0';
+		for(i = 0;i < max_guess; i++){
 			if(i%10 == 0){
-				y = 250;
-				x += 100;				
-			}
+		 		y = 250;
+		 		x += 100;				
+		 	}
 
-			gfx_text(string,x,y,2);
-			i++;			
-			y += 25;
-				
+		 	gfx_text(string_list[i],x,y,2);		
+		 	y += 25;
 		}
-		fclose(fp);
+
+		// FILE *fp;
+		// fp = fopen("wordlist_Game1.txt", "r");
+		// while(fgets(string,10,fp) !=NULL){
+		// 	string[strcspn(string, "\n")] = '\0';
+		// 	if(i%10 == 0){
+		// 		y = 250;
+		// 		x += 100;				
+		// 	}
+
+		// 	gfx_text(string,x,y,2);
+		// 	i++;			
+		// 	y += 25;
+				
+		// }
+		// fclose(fp);
 
 		gfx_text("Thank you for playing!!", 650, 310, 2);
 		gfx_text("Press ANYWHERE to go back", 650, 350, 2);
