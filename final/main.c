@@ -48,8 +48,6 @@ int main(){
 	pthread_create(&bgm_thread, NULL, bgm, NULL);
 	
 	menu();
-	
-
 	return 0;
 }
 
@@ -66,8 +64,7 @@ void menu(){
 	while(1){
 		if(kb_key == 1 || loop == 1){
 			loop = 0;
-			gfx_color(1, 11, 19);
-	
+
 			house(10,403);
 			for (x=0;x<1300;x+=48){
 				grass(x,608);
@@ -77,7 +74,6 @@ void menu(){
 			gfx_text("C.Code", 1230, 590, 1);
 			gfx_text("Welcome to TEXT TWIST", 530, 200, 2);
 			
-			//centering formula: x = (window.size - width)/2
 			nav_button(550, 290, 200, 50,"PLAY");
 			nav_button(550, 390, 200, 50,"HELP");
 			nav_button(550, 490, 200, 50, "EXIT");
@@ -122,7 +118,6 @@ void play_game(){
 	wordlist(set, set_no, &max_guess, guess_list, &longest);
 
 	
-	int z;
 	pthread_t animation_thread;
 	int *peashooter_shoot;
 	int *end;
@@ -131,14 +126,16 @@ void play_game(){
 	
 	gfx_clear();
 	usleep(10000); //give time for graphics to load and prevent artifacts
-	srand(time(NULL));
 	
+	//stars
+	srand(time(NULL));
 	for(i = 0; i < 100; i++){
 		gfx_color(255,255,255);
 		x = rand()%1300;
 		y = rand()&450;
 		gfx_fillrectangle(x,y,2,2);
 	}
+
 	i = 0;
 	while(1){
 
@@ -146,6 +143,7 @@ void play_game(){
 			
 			start:
 			int go = 0, guessed = 0, check = 0;
+
 			house(10,403);
 			gfx_color(1, 11, 19);
 			gfx_fillrectangle(200,310, 160,25);
@@ -166,6 +164,7 @@ void play_game(){
 			}
 
 			k = 0;
+			//Puzzle letters inputs
 			printf("x: %d\n", gfx_xpos());
 			while((gfx_xpos() >= x_center && gfx_xpos() <= x_center+((strlen(set)-1)*100)) && (gfx_ypos() >= 375 && gfx_ypos() <= 425)){
 				
@@ -396,7 +395,7 @@ void wordlist(char set[10], int y, int *max_guess, char string_list[35][10], int
 	fclose(fp);
 }
 
-
+//Guess evaluation
 int check_guess(int *check, char guess[10], int *counter,int max_guess, char string_list[35][10], int longest){
    
    int i = 0, bingo = 0;
@@ -452,6 +451,7 @@ int check_guess(int *check, char guess[10], int *counter,int max_guess, char str
 	}
 }
 
+//Help message
 void help(){
 	gfx_color(1, 11, 19);
 	gfx_fillrectangle(500,200,400,400);
@@ -469,6 +469,7 @@ void help(){
 
 }
 
+//Flush leftover inputs
 void flush(){
 	getchar();
 	
@@ -478,15 +479,19 @@ void flush(){
 	}
 }
 
+//End screen
 void ended(int points){
 	char string[10];
 	do{
 		int x = 200, y = 250, i = 0, c;
+		char score[10];
 		gfx_color(1, 11, 19);
 		gfx_fillrectangle(0,0,1300,420);
 		gfx_fillrectangle(200,0,1300,520);
 		gfx_color(255,255,255);
 		gfx_text("Goodjob! Points you've managed to achieve:", 200,150,2);
+		sprintf(score,"%d",points);
+		gfx_text(score, 730,150,2);
 		gfx_text("Here's a list of all the words that could be found", 200,200,2);
 		//use gfx_line (); printf("----------------------------------------------------\n");
 		
@@ -514,6 +519,7 @@ void ended(int points){
 	//flush();
 }
 
+// gfx_wait() but without the waiting
 char gfx_getKey(){
 	if(gfx_event_waiting()){
 		char key = gfx_wait();
@@ -522,6 +528,7 @@ char gfx_getKey(){
 	}
 }
 
+//Background music
 void *bgm(){
 
     FILE *fp = fopen("bgm.wav", "rb");
@@ -553,6 +560,7 @@ void *bgm(){
     
 }
 
+//Tap sound feedback
 void tap(){
 
     FILE *fp = fopen("tap.wav", "rb");
@@ -581,6 +589,7 @@ void tap(){
     
 }
 
+//Various sprite animation
 void *animation(void *args ){
 
 	int re_head_mov = 0, re_head;
@@ -680,6 +689,7 @@ void *animation(void *args ){
 	}
 }
 
+//cloud animation
 void *cloud_animation(){
 	int cloud_x = 0, baby_x = 0, pea_head_mov= 1, pea_head = 1108;
 		
