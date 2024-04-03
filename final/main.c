@@ -36,6 +36,9 @@ void ended(int points, char string_list[35][10], int max_guess);
 char gfx_getKey();
 void *bgm();
 void tap();
+void wrong_sound();
+void correct_sound();
+void bingo_sound();
 void *animation(void *args);
 void *cloud_animation();
 
@@ -414,6 +417,7 @@ int check_guess(int *check, char guess[10], int *counter,int max_guess, char str
 	gfx_color(255,255,255);
 	if(*check && bingo){
 		gfx_text("BINGO!",200,310,2);
+		bingo_sound();
 		printf("%s: BINGO!\n", guess);	
 		printf("-----------------------------------------------\n");
 		*counter = *counter + 1;
@@ -421,6 +425,7 @@ int check_guess(int *check, char guess[10], int *counter,int max_guess, char str
 	}
 	else if(*check){
 		gfx_text("VALID WORD!",200,310,2);
+		correct_sound();
 		printf("%s: VALID WORD\n", guess);	
 		printf("-----------------------------------------------\n");
 		*counter = *counter + 1;
@@ -430,7 +435,7 @@ int check_guess(int *check, char guess[10], int *counter,int max_guess, char str
 		int i = 0;
 		
 		printf("%s: ", guess);
-		
+		wrong_sound();
 		do{
 			if(strlen(guess)<3){
 				gfx_text("TOO SHORT!",200,310,2);
@@ -448,6 +453,7 @@ int check_guess(int *check, char guess[10], int *counter,int max_guess, char str
 		}while(i < strlen(guess));
 		gfx_text("INVALID WORD!",200,310,2);
 		printf("INVALID WORD\n");
+		wrong_sound();
 		printf("-----------------------------------------------\n");
 		
 		return 0;
@@ -576,6 +582,90 @@ void *bgm(){
 void tap(){
 
     FILE *fp = fopen("tap.wav", "rb");
+	if(fp == NULL) {
+		printf("FILE NOT FOUND\n");
+		exit(1);
+	}
+
+    pa_simple *pa_handle;
+    pa_sample_spec pa_spec;
+    pa_spec.format = PA_SAMPLE_S16LE;
+    pa_spec.channels = 2;
+    pa_spec.rate = 44100;
+
+    pa_handle = pa_simple_new(NULL, "play_audio", PA_STREAM_PLAYBACK, NULL, "playback", &pa_spec, NULL, NULL, NULL);
+    
+    char buffer[4096];
+    size_t read_count;
+	while((read_count = fread(buffer, sizeof(char), 4096, fp)) > 0){
+		pa_simple_write(pa_handle, buffer, read_count, NULL);
+	}
+    pa_simple_drain(pa_handle, NULL);
+    pa_simple_free(pa_handle);
+
+    fclose(fp);
+    
+}
+
+void wrong_sound(){
+
+    FILE *fp = fopen("wrong.wav", "rb");
+	if(fp == NULL) {
+		printf("FILE NOT FOUND\n");
+		exit(1);
+	}
+
+    pa_simple *pa_handle;
+    pa_sample_spec pa_spec;
+    pa_spec.format = PA_SAMPLE_S16LE;
+    pa_spec.channels = 2;
+    pa_spec.rate = 44100;
+
+    pa_handle = pa_simple_new(NULL, "play_audio", PA_STREAM_PLAYBACK, NULL, "playback", &pa_spec, NULL, NULL, NULL);
+    
+    char buffer[4096];
+    size_t read_count;
+	while((read_count = fread(buffer, sizeof(char), 4096, fp)) > 0){
+		pa_simple_write(pa_handle, buffer, read_count, NULL);
+	}
+    pa_simple_drain(pa_handle, NULL);
+    pa_simple_free(pa_handle);
+
+    fclose(fp);
+    
+}
+
+void correct_sound(){
+
+    FILE *fp = fopen("correct.wav", "rb");
+	if(fp == NULL) {
+		printf("FILE NOT FOUND\n");
+		exit(1);
+	}
+
+    pa_simple *pa_handle;
+    pa_sample_spec pa_spec;
+    pa_spec.format = PA_SAMPLE_S16LE;
+    pa_spec.channels = 2;
+    pa_spec.rate = 44100;
+
+    pa_handle = pa_simple_new(NULL, "play_audio", PA_STREAM_PLAYBACK, NULL, "playback", &pa_spec, NULL, NULL, NULL);
+    
+    char buffer[4096];
+    size_t read_count;
+	while((read_count = fread(buffer, sizeof(char), 4096, fp)) > 0){
+		pa_simple_write(pa_handle, buffer, read_count, NULL);
+	}
+    pa_simple_drain(pa_handle, NULL);
+    pa_simple_free(pa_handle);
+
+    fclose(fp);
+    
+}
+
+void bingo_sound(){
+
+    FILE *fp = fopen("bingo.wav", "rb");
 	if(fp == NULL) {
 		printf("FILE NOT FOUND\n");
 		exit(1);
