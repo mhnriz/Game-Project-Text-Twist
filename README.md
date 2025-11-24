@@ -1,17 +1,16 @@
 # **Text Twist by C.Code**
 <div align="center">
 
-![GitHub top language](https://img.shields.io/github/languages/top/mhnriz/Game-Project-Text-Twist?style=for-the-badge&color=66C842)
-![GitHub last commit](https://img.shields.io/github/last-commit/mhnriz/Game-Project-Text-Twist?style=for-the-badge&color=5FCB41)
-![GitHub repo size](https://img.shields.io/github/repo-size/mhnriz/Game-Project-Text-Twist?style=for-the-badge&color=038800)
-
-<br>
-
-![Platform](https://img.shields.io/badge/platform-Ubuntu-66C842?style=for-the-badge)
-![Audio](https://img.shields.io/badge/Audio-PulseAudio-5FCB41?style=for-the-badge)
-![Graphics](https://img.shields.io/badge/Graphics-X11%20Custom%20GFX%20Library-038800?style=for-the-badge)
+![Last Commit](https://img.shields.io/github/last-commit/mhnriz/Game-Project-Text-Twist?style=for-the-badge&color=3498DB)
+![Repo Size](https://img.shields.io/github/repo-size/mhnriz/Game-Project-Text-Twist?style=for-the-badge&color=2ECC71)
+![Platform](https://img.shields.io/badge/Platform-Ubuntu-3498DB?style=for-the-badge)
+<br />
+![Language](https://img.shields.io/badge/Language-C-444444?style=for-the-badge)
+![Graphics](https://img.shields.io/badge/Graphics-Custom%20GFX%20Library-9B59B6?style=for-the-badge)
+![Audio](https://img.shields.io/badge/Audio-PulseAudio-3498DB?style=for-the-badge)
 
 </div>
+
 
 ---
 
