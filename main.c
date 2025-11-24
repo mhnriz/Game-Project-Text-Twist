@@ -327,7 +327,7 @@ void game_set(char set[10], int *set_no){
 	char line[10];
 	printf("file %d\n",*set_no);
 	FILE *fp;
-	fp = fopen("GameSets.txt","r");
+	fp = fopen("data/GameSets.txt","r");
 	if(fp == NULL) {
 		printf("FILE NOT FOUND\n");
 		exit(1);
@@ -347,13 +347,13 @@ void wordlist(char set[10], int y, int *max_guess, char string_list[35][10], int
 	FILE *fp;
 	switch(y){
 		case 1:
-			fp = fopen("wordlist_Game1.txt","r");
+			fp = fopen("data/wordlist_Game1.txt","r");
 			break;
 		case 2:
-			fp = fopen("wordlist_Game2.txt","r");
+			fp = fopen("data/wordlist_Game2.txt","r");
 			break;
 		case 3:
-			fp = fopen("wordlist_Game3.txt","r");
+			fp = fopen("data/wordlist_Game3.txt","r");
 			break;
 		default:
 			if( fp == NULL ) {
@@ -549,7 +549,7 @@ char gfx_getKey(){
 //Background music
 void *bgm(){
 
-    FILE *fp = fopen("bgm.wav", "rb");
+    FILE *fp = fopen("data/bgm.wav", "rb");
 	if(fp == NULL) {
 		printf("FILE NOT FOUND\n");
 		exit(1);
@@ -581,7 +581,7 @@ void *bgm(){
 //Tap sound feedback
 void tap(){
 
-    FILE *fp = fopen("tap.wav", "rb");
+    FILE *fp = fopen("data/tap.wav", "rb");
 	if(fp == NULL) {
 		printf("FILE NOT FOUND\n");
 		exit(1);
@@ -609,7 +609,7 @@ void tap(){
 
 void wrong_sound(){
 
-    FILE *fp = fopen("wrong.wav", "rb");
+    FILE *fp = fopen("data/wrong.wav", "rb");
 	if(fp == NULL) {
 		printf("FILE NOT FOUND\n");
 		exit(1);
@@ -637,7 +637,7 @@ void wrong_sound(){
 
 void correct_sound(){
 
-    FILE *fp = fopen("correct.wav", "rb");
+    FILE *fp = fopen("data/correct.wav", "rb");
 	if(fp == NULL) {
 		printf("FILE NOT FOUND\n");
 		exit(1);
@@ -665,7 +665,7 @@ void correct_sound(){
 
 void bingo_sound(){
 
-    FILE *fp = fopen("bingo.wav", "rb");
+    FILE *fp = fopen("data/bingo.wav", "rb");
 	if(fp == NULL) {
 		printf("FILE NOT FOUND\n");
 		exit(1);
